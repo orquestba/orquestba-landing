@@ -7,6 +7,12 @@ const navLinks = [
 ];
 const serviceLinks = ["Sistema IBP", "Asesoría en Análisis de Negocio"];
 
+const getCurrentYear = () => {
+  const now = new Date();
+
+  return now.getFullYear();
+};
+
 export default function Footer() {
   return (
     <footer className="bg-footer-bg pt-18 pb-10" id="contacto">
@@ -15,7 +21,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="font-heading text-[20px] text-white mb-1">
-              Orquesta
+              Orquestba
             </div>
             <div className="text-[11px] text-white/30 tracking-[0.08em] mb-5">
               Our Request to Data · IBP
@@ -78,7 +84,7 @@ export default function Footer() {
               Contacto
             </div>
             {[
-              "info@orquesta.com.ar",
+              "info@orquestba.com.ar",
               "+54 11 1234 5678",
               "Buenos Aires, Argentina",
             ].map((item) => (
@@ -94,7 +100,7 @@ export default function Footer() {
 
         <div className="flex justify-between items-center">
           <div className="text-[12px] text-white/20">
-            © 2024 Orquesta. Todos los derechos reservados.
+            © {getCurrentYear()} Orquestba. Todos los derechos reservados.
           </div>
           <div className="flex gap-6">
             {["Política de privacidad", "Términos y condiciones"].map(

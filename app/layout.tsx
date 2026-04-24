@@ -15,7 +15,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Orquesta — Integrated Business Planning",
+  title: "Orquestba — Integrated Business Planning",
   description:
     "Conectamos datos, áreas y decisiones para que tu empresa tenga claridad, dirección y capacidad de adaptación.",
 };
