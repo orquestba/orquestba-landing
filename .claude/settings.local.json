@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python *)"
+      "Bash(python *)",
+      "Bash(npm install *)",
+      "Bash(node -e \"const l = require\\('lucide-react'\\); const keys = Object.keys\\(l\\); console.log\\(keys.length, 'icons'\\); console.log\\(keys.filter\\(k => /^[A-Z][a-z]/.test\\(k\\) && !/Icon$/.test\\(k\\)\\).filter\\(k => /^[A-Z][a-z]+[A-Z]/.test\\(k\\)\\).slice\\(0,5\\)\\)\")",
+      "Bash(npx tsc *)",
+      "Bash(npm run *)"
     ]
   }
 }

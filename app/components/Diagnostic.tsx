@@ -21,18 +21,19 @@ const cases = [
 
 export default function Diagnostic() {
   return (
-    <section className="py-16 md:py-20 lg:pt-[120px] lg:pb-[100px] bg-off-white" id="servicios">
-      <div className="max-w-[1380px] mx-auto px-5 md:px-8 lg:px-[60px]">
-
+    <section
+      className="py-16 md:py-20 lg:pt-30 lg:pb-25 bg-off-white"
+      id="servicios"
+    >
+      <div className="max-w-345 mx-auto px-5 md:px-8 lg:px-15">
         <div className="mb-10 lg:mb-14">
           <div className="eyebrow eyebrow-muted">El punto de partida</div>
           <h2 className="text-[32px] md:text-[44px] lg:text-[56px] text-navy leading-[1.05] lg:leading-none mb-4 lg:mb-5">
             ¿Dónde está
             <br />
-            tu empresa{" "}
-            <em className="text-copper">hoy?</em>
+            tu empresa <em className="text-copper">hoy?</em>
           </h2>
-          <p className="text-[15px] lg:text-[17px] text-ink-3 leading-[1.7] max-w-[640px]">
+          <p className="text-[15px] lg:text-[17px] text-ink-3 leading-[1.7] max-w-160">
             No hay un perfil único de empresa que necesite IBP. Trabajamos con
             organizaciones en distintos momentos de su recorrido.{" "}
             <strong className="font-medium text-ink-2">
@@ -48,8 +49,9 @@ export default function Diagnostic() {
               key={c.label}
               className={[
                 "p-6 md:p-8 lg:p-10 bg-off-white transition-colors hover:bg-cream cursor-default",
-                // borders
-                i < cases.length - 1 ? "border-b border-rule md:border-b-0" : "",
+                i < cases.length - 1
+                  ? "border-b border-rule md:border-b-0"
+                  : "",
                 i === 0 ? "md:border-r lg:border-r border-rule" : "",
                 i === 1 ? "lg:border-r border-rule" : "",
               ].join(" ")}
@@ -57,13 +59,13 @@ export default function Diagnostic() {
               <div className="text-[11px] font-bold tracking-[0.15em] uppercase text-ink-4 mb-3 lg:mb-4">
                 {c.label}
               </div>
-              <div className="font-heading text-[18px] lg:text-[20px] text-navy leading-[1.2] mb-3 lg:mb-4">
+              <div className="font-heading text-lg lg:text-xl text-navy leading-[1.2] mb-3 lg:mb-4">
                 {c.statement}
               </div>
-              <p className="text-[14px] text-ink-3 leading-[1.6] mb-5 lg:mb-6">
+              <p className="text-sm text-ink-3 leading-[1.6] mb-5 lg:mb-6">
                 {c.body}
               </p>
-              <span className="inline-flex items-center gap-2 text-[12px] font-semibold text-copper bg-copper-pale px-3 py-[5px] rounded-[20px]">
+              <span className="inline-flex items-center gap-2 text-xs font-semibold text-copper bg-copper-pale px-3 py-1.25 rounded-[20px]">
                 {c.signal}
               </span>
             </div>
@@ -72,13 +74,12 @@ export default function Diagnostic() {
 
         <div className="flex items-center justify-center gap-4 pt-5 lg:pt-7">
           <div className="flex-1 h-px bg-rule" />
-          <span className="text-[12px] md:text-[13px] text-ink-4 italic whitespace-nowrap text-center">
+          <span className="text-xs md:text-[13px] text-ink-4 italic whitespace-nowrap text-center">
             Si reconocés alguna de estas señales, hay una respuesta
           </span>
-          <span className="text-[18px] md:text-[20px] text-copper opacity-60">↓</span>
+          <span className="text-lg md:text-xl text-copper opacity-60">↓</span>
           <div className="flex-1 h-px bg-rule" />
         </div>
-
       </div>
     </section>
   );

@@ -1,6 +1,7 @@
 "use client";
 import Button from "./Button";
 import HeroVisual from "./HeroVisual";
+import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 const container = {
@@ -38,10 +39,10 @@ export default function Hero() {
       >
         <motion.div
           variants={item}
-          className="inline-flex items-center gap-2 bg-white/[0.07] border border-white/12 rounded-[20px] py-1.5 pr-[14px] pl-[10px] mb-8 lg:mb-10 w-fit"
+          className="inline-flex items-center gap-2 bg-white/[0.07] border border-white/12 rounded-[20px] py-1.5 pr-3.5 pl-2.5 mb-8 lg:mb-10 w-fit"
         >
           <div className="w-1.5 h-1.5 bg-copper-light rounded-full" />
-          <span className="text-[11px] md:text-[12px] font-medium text-white/60 tracking-[0.08em]">
+          <span className="text-[11px] md:text-xs font-medium text-white/60 tracking-[0.08em]">
             Integrated Business Planning · IBP
           </span>
         </motion.div>
@@ -59,7 +60,7 @@ export default function Hero() {
 
         <motion.p
           variants={item}
-          className="text-[16px] lg:text-[18px] font-light text-white/60 leading-[1.65] max-w-full lg:max-w-120 mb-8 lg:mb-12"
+          className="text-base lg:text-lg font-light text-white/60 leading-[1.65] max-w-full lg:max-w-120 mb-8 lg:mb-12"
         >
           Orquesta conecta{" "}
           <strong className="font-medium text-white/85">
@@ -75,17 +76,7 @@ export default function Hero() {
         >
           <Button
             href="#diagnostico"
-            icon={
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path
-                  d="M3 8h10M9 4l4 4-4 4"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            }
+            icon={<ArrowRight size={16} />}
           >
             Agendar diagnóstico gratuito
           </Button>

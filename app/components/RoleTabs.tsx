@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Check } from "lucide-react";
 
 type Role = "business" | "finance" | "supply" | "sales";
 
@@ -51,8 +52,8 @@ export default function RoleTabs() {
   const panel = panels[active];
 
   return (
-    <section className="py-16 md:py-20 lg:py-[120px] bg-off-white" id="problema">
-      <div className="max-w-[1380px] mx-auto px-5 md:px-8 lg:px-[60px]">
+    <section className="py-16 md:py-20 lg:py-30 bg-off-white" id="problema">
+      <div className="max-w-345 mx-auto px-5 md:px-8 lg:px-15">
 
         <div className="mb-10 lg:mb-14">
           <div className="eyebrow eyebrow-muted">El diagnóstico</div>
@@ -64,7 +65,7 @@ export default function RoleTabs() {
             para{" "}
             <em className="text-copper">todos.</em>
           </h2>
-          <p className="text-[15px] lg:text-[17px] text-ink-3 leading-[1.7] max-w-[640px]">
+          <p className="text-[15px] lg:text-[17px] text-ink-3 leading-[1.7] max-w-160">
             Cada área siente la falta de estructura de una forma distinta. Pero
             el origen es siempre el mismo: la información no fluye.{" "}
             <strong className="font-medium text-ink-2">
@@ -93,43 +94,41 @@ export default function RoleTabs() {
 
         {/* Panel — stacks on mobile */}
         <div className="grid grid-cols-1 lg:grid-cols-2 border border-rule border-t-0 rounded-b-xl overflow-hidden">
-          <div className="p-6 md:p-8 lg:p-[52px] bg-cream border-b border-rule lg:border-b-0 lg:border-r">
+          <div className="p-6 md:p-8 lg:p-13 bg-cream border-b border-rule lg:border-b-0 lg:border-r">
             <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-ink-4 mb-4 lg:mb-5">
               El problema que sentís
             </div>
             <h3 className="font-heading text-[22px] md:text-[26px] lg:text-[28px] text-navy mb-3 lg:mb-4 leading-[1.15]">
               {panel.painTitle}
             </h3>
-            <p className="text-[14px] lg:text-[15px] text-ink-2 leading-[1.7] mb-6 lg:mb-8">
+            <p className="text-sm lg:text-[15px] text-ink-2 leading-[1.7] mb-6 lg:mb-8">
               {panel.painBody}
             </p>
             <ul className="flex flex-col gap-2.5">
               {panel.signals.map((s) => (
                 <li key={s} className="flex items-start gap-3 text-[13px] lg:text-[13.5px] text-ink-3 leading-[1.5]">
-                  <span className="text-ink-4 text-[12px] mt-0.5 shrink-0">—</span>
+                  <span className="text-ink-4 text-xs mt-0.5 shrink-0">—</span>
                   {s}
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="p-6 md:p-8 lg:p-[52px] bg-off-white">
+          <div className="p-6 md:p-8 lg:p-13 bg-off-white">
             <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-copper mb-4 lg:mb-5">
               Cómo responde IBP
             </div>
-            <h3 className="font-heading text-[20px] md:text-[22px] lg:text-[24px] text-navy mb-3 lg:mb-4 leading-[1.2]">
+            <h3 className="font-heading text-xl md:text-[22px] lg:text-2xl text-navy mb-3 lg:mb-4 leading-[1.2]">
               {panel.ibpHeadline}
             </h3>
-            <p className="text-[14px] lg:text-[15px] text-ink-2 leading-[1.7] mb-6 lg:mb-8">
+            <p className="text-sm lg:text-[15px] text-ink-2 leading-[1.7] mb-6 lg:mb-8">
               {panel.ibpBody}
             </p>
             <ul className="flex flex-col gap-3">
               {panel.outcomes.map((o) => (
-                <li key={o} className="flex items-start gap-3 text-[13px] lg:text-[14px] text-ink-2 leading-[1.5]">
-                  <div className="w-[18px] h-[18px] bg-copper-pale rounded-full flex items-center justify-center shrink-0 mt-0.5">
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                      <path d="M2 5l2 2 4-4" stroke="#B8692A" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                <li key={o} className="flex items-start gap-3 text-[13px] lg:text-sm text-ink-2 leading-[1.5]">
+                  <div className="w-4.5 h-4.5 bg-copper-pale rounded-full flex items-center justify-center shrink-0 mt-0.5">
+                    <Check size={10} strokeWidth={1.4} color="#B8692A" />
                   </div>
                   {o}
                 </li>
