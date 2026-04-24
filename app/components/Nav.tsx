@@ -2,6 +2,14 @@
 
 import { useEffect, useState } from "react";
 
+const links = [
+  { href: "#servicios", label: "Servicios" },
+  { href: "#metodo", label: "Método" },
+  { href: "#recursos", label: "Recursos" },
+  { href: "#nosotros", label: "Nosotros" },
+  { href: "#contacto", label: "Contacto" },
+];
+
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
 
@@ -14,15 +22,13 @@ export default function Nav() {
   return (
     <nav
       id="main-nav"
-      style={{
-        boxShadow: scrolled ? "0 1px 20px rgba(0,0,0,0.08)" : "none",
-      }}
+      className="sticky top-0 z-100 bg-off-white border-b border-rule h-17 flex items-center"
+      style={{ boxShadow: scrolled ? "0 1px 20px rgba(0,0,0,0.08)" : "none" }}
     >
-      <div className="nav-inner">
-        {/* TOOD: Change logo for real Orquestba logo */}
-        <a href="#" className="nav-logo">
+      <div className="max-w-345 mx-auto px-15 flex items-center justify-between w-full">
+        <a href="#" className="flex items-center gap-3 no-underline">
           <svg
-            className="nav-logo-mark"
+            className="w-8.5 h-8.5"
             viewBox="0 0 34 34"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -57,32 +63,34 @@ export default function Nav() {
               strokeWidth="1.2"
             />
           </svg>
-          <div className="nav-logo-text">
-            <div className="nav-logo-name">Orquesta</div>
-            <div className="nav-logo-sub">Our Request to Data</div>
+          <div>
+            <div className="font-heading text-[18px] text-navy leading-none tracking-[0.01em]">
+              Orquesta
+            </div>
+            <div className="text-[10px] text-ink-3 tracking-[0.08em] mt-0.5">
+              Our Request to Data
+            </div>
           </div>
         </a>
 
-        <ul className="nav-links">
-          <li>
-            <a href="#servicios">Servicios</a>
-          </li>
-          <li>
-            <a href="#metodo">Método</a>
-          </li>
-          <li>
-            <a href="#recursos">Recursos</a>
-          </li>
-          <li>
-            <a href="#nosotros">Nosotros</a>
-          </li>
-          <li>
-            <a href="#contacto">Contacto</a>
-          </li>
+        <ul className="flex items-center gap-9 list-none">
+          {links.map((link) => (
+            <li key={link.href}>
+              <a
+                href={link.href}
+                className="text-[14px] text-ink-2 no-underline transition-colors hover:text-navy"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
         </ul>
 
-        <a href="#diagnostico" className="nav-cta">
-          Agendar diagnóstico <span className="nav-cta-arrow">→</span>
+        <a
+          href="#diagnostico"
+          className="inline-flex items-center gap-2 bg-navy text-white text-[13.5px] font-semibold px-5.5 py- 2.75 rounded no-underline transition-colors hover:bg-navy-soft"
+        >
+          Agendar diagnóstico <span className="text-[14px] opacity-70">→</span>
         </a>
       </div>
     </nav>
