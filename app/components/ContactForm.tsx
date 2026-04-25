@@ -183,7 +183,10 @@ function FormContent({ onReset }: { onReset: () => void }) {
 
 export default function ContactForm() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const isInView = useInView(ref, {
+    // once: true,
+    margin: "-80px",
+  });
   const [formKey, setFormKey] = useState(0);
 
   const container = {

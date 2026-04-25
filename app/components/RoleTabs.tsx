@@ -118,7 +118,7 @@ export default function RoleTabs() {
   const ref = useRef(null);
 
   const isInView = useInView(ref, {
-    once: true,
+    // once: true,
     margin: "-100px", // Trigger when the component is 100px in view
   });
 
@@ -133,6 +133,7 @@ export default function RoleTabs() {
 
   const item = {
     hidden: { opacity: 0, y: 24 },
+
     show: {
       opacity: 1,
       y: 0,

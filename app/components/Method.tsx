@@ -35,7 +35,7 @@ export default function Method() {
   const ref = useRef(null);
 
   const isInView = useInView(ref, {
-    once: true,
+    // once: true,
     margin: "-100px", // Trigger when the component is 100px in view
   });
 
