@@ -4,9 +4,8 @@ import RoleTabs from "./components/RoleTabs";
 import Method from "./components/Method";
 import Diagnostic from "./components/Diagnostic";
 import Aspiration from "./components/Aspiration";
+import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
-
-// TODO: Finish with responsive sections, Footer is not working
 
 export default function Home() {
   return (
@@ -17,6 +16,7 @@ export default function Home() {
       <Method />
       <Diagnostic />
       <Aspiration />
+      <ContactForm />
       <Footer />
     </>
   );
