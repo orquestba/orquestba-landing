@@ -1,3 +1,8 @@
+"use client";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import Title from "./shared/Title";
+
 const cases = [
   {
     label: "Caso A",
@@ -20,30 +25,66 @@ const cases = [
 ];
 
 export default function Diagnostic() {
+  const ref = useRef(null);
+
+  const isInView = useInView(ref, {
+    once: true,
+    margin: "-100px", // Trigger when the component is 100px in view
+  });
+
+  const container = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.08,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 24 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.45,
+        ease: "easeOut" as const,
+      },
+    },
+  };
+
   return (
-    <section
+    <motion.section
+      ref={ref}
+      variants={container}
+      initial="hidden"
+      animate={isInView ? "show" : "hidden"}
       className="py-16 md:py-20 lg:pt-30 lg:pb-25 bg-off-white"
       id="servicios"
     >
-      <div className="max-w-345 mx-auto px-5 md:px-8 lg:px-15">
+      <motion.div
+        variants={item}
+        className="max-w-345 mx-auto px-5 md:px-8 lg:px-15"
+      >
         <div className="mb-10 lg:mb-14">
           <div className="eyebrow eyebrow-muted">El punto de partida</div>
-          <h2 className="text-[32px] md:text-[44px] lg:text-[56px] text-navy leading-[1.05] lg:leading-none mb-4 lg:mb-5">
-            ¿Dónde está
-            <br />
-            tu empresa <em className="text-copper">hoy?</em>
-          </h2>
+          <Title>
+            ¿Dónde está tu empresa <Title.Highlight>hoy?</Title.Highlight>
+          </Title>
           <p className="text-[15px] lg:text-[17px] text-ink-3 leading-[1.7] max-w-160">
             No hay un perfil único de empresa que necesite IBP. Trabajamos con
             organizaciones en distintos momentos de su recorrido.{" "}
-            <strong className="font-medium text-ink-2">
+            <span className="font-medium text-ink-2">
               El punto de entrada depende de dónde estés parado.
-            </strong>
+            </span>
           </p>
         </div>
 
         {/* Cases grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border border-rule rounded-xl overflow-hidden mb-8 lg:mb-10">
+        <motion.div
+          variants={item}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border border-rule rounded-xl overflow-hidden mb-8 lg:mb-10"
+        >
           {cases.map((c, i) => (
             <div
               key={c.label}
@@ -70,17 +111,20 @@ export default function Diagnostic() {
               </span>
             </div>
           ))}
-        </div>
+        </motion.div>
 
-        <div className="flex items-center justify-center gap-4 pt-5 lg:pt-7">
+        <motion.div
+          variants={item}
+          className="flex items-center justify-center gap-4 pt-5 lg:pt-7"
+        >
           <div className="flex-1 h-px bg-rule" />
           <span className="text-xs md:text-[13px] text-ink-4 italic whitespace-nowrap text-center">
             Si reconocés alguna de estas señales, hay una respuesta
           </span>
           <span className="text-lg md:text-xl text-copper opacity-60">↓</span>
           <div className="flex-1 h-px bg-rule" />
-        </div>
-      </div>
-    </section>
+        </motion.div>
+      </motion.div>
+    </motion.section>
   );
 }

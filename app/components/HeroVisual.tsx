@@ -41,6 +41,7 @@ const HeroVisual = () => {
           strokeWidth="1.5"
           animate={{ scale: [1, 1.04, 1] }}
           transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+          className="hover:cursor-pointer"
         />
         <circle
           cx="280"
@@ -49,8 +50,15 @@ const HeroVisual = () => {
           fill="rgba(184,105,42,0.10)"
           stroke="rgba(184,105,42,0.25)"
           strokeWidth="1"
+          className="hover:cursor-pointer"
         />
-        <circle cx="280" cy="300" r="6" fill="#B8692A" />
+        <circle
+          cx="280"
+          cy="300"
+          r="6"
+          fill="#B8692A"
+          className="hover:cursor-pointer"
+        />
 
         <text
           x="280"
@@ -60,6 +68,7 @@ const HeroVisual = () => {
           fill="rgba(255,255,255,0.6)"
           textAnchor="middle"
           fontStyle="italic"
+          className="hover:cursor-pointer"
         >
           sistema
         </text>
@@ -99,6 +108,7 @@ const HeroVisual = () => {
           { cx: 100, cy: 300, label: "Dirección", sub: "& Estrategia" },
         ].map(({ cx, cy, label, sub }, i) => (
           <motion.g
+            className="hover:cursor-pointer"
             key={label}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}

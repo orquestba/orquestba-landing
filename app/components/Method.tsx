@@ -1,4 +1,8 @@
+"use client";
+import { useRef } from "react";
 import ArchDraw from "./ArchDraw";
+import Title from "./shared/Title";
+import { motion, useInView } from "framer-motion";
 
 const phases = [
   {
@@ -28,32 +32,70 @@ const phases = [
 ];
 
 export default function Method() {
+  const ref = useRef(null);
+
+  const isInView = useInView(ref, {
+    once: true,
+    margin: "-100px", // Trigger when the component is 100px in view
+  });
+
+  const container = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.08,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 24 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.45,
+        ease: "easeOut" as const,
+      },
+    },
+  };
+
   return (
-    <section
+    <motion.section
+      ref={ref}
+      variants={container}
+      initial="hidden"
+      animate={isInView ? "show" : "hidden"}
       className="pt-16 md:pt-20 lg:pt-25 bg-cream overflow-hidden"
       id="metodo"
     >
-      <div className="max-w-345 mx-auto px-5 md:px-8 lg:px-15 mb-10 lg:mb-14">
+      <motion.div
+        variants={item}
+        className="max-w-345 mx-auto px-5 md:px-8 lg:px-15 mb-10 lg:mb-14"
+      >
         <div className="eyebrow">Cómo trabajamos</div>
-        <h2 className="text-[32px] md:text-[44px] lg:text-[56px] text-navy leading-[1.05] lg:leading-none">
-          Un método.
-          <br />
-          Cuatro etapas.
-          <br />
-          <em className="text-copper">Sin humo.</em>
-        </h2>
+
+        <Title>
+          Un método. Cuatro etapas. <Title.Highlight>Sin humo.</Title.Highlight>
+        </Title>
         <p className="text-[15px] lg:text-[17px] text-ink-3 leading-[1.7] max-w-160 mt-4 lg:mt-5">
           Conectamos datos, áreas y decisiones para que tu empresa tenga
           claridad, dirección y capacidad de adaptación.
         </p>
-      </div>
+      </motion.div>
 
-      <div className="w-full relative bg-cream overflow-hidden">
+      <motion.div
+        variants={item}
+        className="w-full relative bg-cream overflow-hidden"
+      >
         <div className="max-w-345 mx-auto px-5 md:px-8 lg:px-15">
           <ArchDraw />
 
           {/* Phase cards grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 bg-cream border-t border-rule">
+          <motion.div
+            variants={item}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 bg-cream border-t border-rule"
+          >
             {phases.map((phase, i) => (
               <div
                 key={phase.num}
@@ -80,9 +122,9 @@ export default function Method() {
                 </div>
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 }

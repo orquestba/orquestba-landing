@@ -1,5 +1,5 @@
 "use client";
-import Button from "./Button";
+import Button from "./shared/Button";
 import HeroVisual from "./HeroVisual";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
@@ -74,10 +74,7 @@ export default function Hero() {
           variants={item}
           className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5 mb-10 lg:mb-18"
         >
-          <Button
-            href="#diagnostico"
-            icon={<ArrowRight size={16} />}
-          >
+          <Button href="#diagnostico" icon={<ArrowRight size={16} />}>
             Agendar diagnóstico gratuito
           </Button>
           <Button variant="ghost" href="#metodo">

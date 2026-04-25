@@ -18,7 +18,11 @@ interface Props {
   rel?: string;
 }
 
-function resolveClass(variant: ButtonVariant, size: ButtonSize, color: ButtonColor): string {
+function resolveClass(
+  variant: ButtonVariant,
+  size: ButtonSize,
+  color: ButtonColor,
+): string {
   if (variant === "ghost") return "btn-ghost-light";
   if (variant === "link") return "path-cta";
   if (variant === "outline") return "btn-outline";
@@ -39,7 +43,9 @@ export default function Button({
   target,
   rel,
 }: Props) {
-  const cls = [resolveClass(variant, size, color), className].filter(Boolean).join(" ");
+  const cls = [resolveClass(variant, size, color), className]
+    .filter(Boolean)
+    .join(" ");
 
   if (href !== undefined) {
     return (

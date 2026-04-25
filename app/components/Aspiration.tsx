@@ -1,6 +1,9 @@
-import { Fragment } from "react";
-import Button from "./Button";
+"use client";
+import { useRef, Fragment } from "react";
+import Button from "./shared/Button";
 import { ArrowRight } from "lucide-react";
+import Title from "./shared/Title";
+import { motion, useInView } from "framer-motion";
 
 const paths = [
   {
@@ -50,8 +53,40 @@ const paths = [
 const isoStages = ["Base", "Estructura", "Sistema", "Mejora continua"];
 
 export default function Aspiration() {
+  const ref = useRef(null);
+
+  const isInView = useInView(ref, {
+    once: true,
+    margin: "-100px", // Trigger when the component is 100px in view
+  });
+
+  const container = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.08,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 24 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.45,
+        ease: "easeOut" as const,
+      },
+    },
+  };
+
   return (
-    <section
+    <motion.section
+      ref={ref}
+      variants={container}
+      initial="hidden"
+      animate={isInView ? "show" : "hidden"}
       className="py-16 md:py-20 lg:py-30 bg-navy relative overflow-hidden"
       id="nosotros"
     >
@@ -71,24 +106,30 @@ export default function Aspiration() {
         }}
       />
 
-      <div className="max-w-345 mx-auto px-5 md:px-8 lg:px-15 relative z-1">
+      <motion.div
+        variants={item}
+        className="max-w-345 mx-auto px-5 md:px-8 lg:px-15 relative z-1"
+      >
         {/* Header */}
-        <div className="mb-10 lg:mb-14">
+        <motion.div variants={item} className="mb-10 lg:mb-14">
           <div className="eyebrow eyebrow-light">El destino</div>
-          <h2 className="text-[32px] md:text-[44px] lg:text-[56px] text-white leading-[1.05] lg:leading-none">
-            ¿Qué estructura
-            <br />
-            querés que <em className="text-copper-light">tenga?</em>
-          </h2>
+
+          <Title className="text-white">
+            ¿Qué estructura querés que <Title.Highlight>tenga?</Title.Highlight>
+          </Title>
+
           <p className="text-[15px] lg:text-[17px] font-light text-white/55 leading-[1.7] max-w-160 mt-4 lg:mt-5">
             No hay un único punto de entrada. Trabajamos desde donde estás — ya
             sea que estés introduciendo IBP por primera vez, refinando lo que
             existe, o subiendo el nivel de madurez de tu sistema.
           </p>
-        </div>
+        </motion.div>
 
         {/* Path cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0.5 mb-12 lg:mb-16 rounded-xl overflow-hidden">
+        <motion.div
+          variants={item}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-0.5 mb-12 lg:mb-16 rounded-xl overflow-hidden"
+        >
           {paths.map((p) => (
             <div
               key={p.title}
@@ -126,37 +167,38 @@ export default function Aspiration() {
               </Button>
             </div>
           ))}
-        </div>
+        </motion.div>
 
         {/* CTA row */}
-        <div
+        <motion.div
+          variants={item}
           className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between pt-8 lg:pt-10 border-t border-white/8 mb-8 lg:mb-10"
           id="diagnostico"
         >
-          <div>
+          <motion.div variants={item}>
             <h3 className="font-heading text-2xl md:text-[28px] lg:text-[32px] text-white mb-2 leading-[1.15]">
               ¿Tu empresa tiene la estructura
               <br className="hidden md:block" />{" "}
-              <em className="text-white/40">para crecer?</em>
+              <span className="text-copper">para crecer?</span>
             </h3>
             <p className="text-sm lg:text-[15px] text-white/45 leading-normal max-w-120">
               En una sesión de diagnóstico analizamos tu situación actual e
               identificamos los puntos críticos. Sin compromiso. Sin
               tecnicismos.
             </p>
-          </div>
+          </motion.div>
           <div className="flex flex-col items-start lg:items-end gap-3 shrink-0">
             <Button size="lg" href="#" icon={<ArrowRight size={18} />}>
               Agendar diagnóstico gratuito
             </Button>
-            <div className="text-xs text-white/25">
-              Sin compromiso · Respuesta en 24h
-            </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* ISO note */}
-        <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-6 md:gap-10 items-start md:items-center px-5 md:px-8 lg:px-10 py-6 lg:py-8 bg-white/5 border border-copper/20 rounded-[10px]">
+        <motion.div
+          variants={item}
+          className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-6 md:gap-10 items-start md:items-center px-5 md:px-8 lg:px-10 py-6 lg:py-8 bg-white/5 border border-copper/20 rounded-[10px]"
+        >
           <div className="flex flex-row md:flex-col items-center md:items-start gap-3 md:gap-2 shrink-0">
             <div className="font-heading text-base lg:text-lg italic text-copper-light border border-copper/50 px-4 md:px-5 py-2 rounded whitespace-nowrap tracking-wider">
               ISO 9001
@@ -187,8 +229,8 @@ export default function Aspiration() {
               ))}
             </div>
           </div>
-        </div>
-      </div>
-    </section>
+        </motion.div>
+      </motion.div>
+    </motion.section>
   );
 }

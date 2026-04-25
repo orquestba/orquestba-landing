@@ -1,14 +1,15 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Button from "./Button";
+import Button from "./shared/Button";
 import { ArrowRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const links = [
-  { href: "#servicios", label: "Servicios" },
   { href: "#metodo", label: "Método" },
+  { href: "#servicios", label: "Servicios" },
   { href: "#recursos", label: "Recursos" },
   { href: "#nosotros", label: "Nosotros" },
   { href: "#contacto", label: "Contacto" },
@@ -25,20 +26,26 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav
+    <motion.nav
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{
+        duration: 0.5,
+        ease: [0.25, 0.1, 0.25, 1], // smooth real
+      }}
       id="main-nav"
       className="sticky top-0 z-100 bg-off-white border-b border-rule h-17 flex items-center"
       style={{ boxShadow: scrolled ? "0 1px 20px rgba(0,0,0,0.08)" : "none" }}
     >
       <div className="max-w-345 mx-auto px-5 md:px-8 lg:px-15 flex items-center justify-between w-full">
         {/* Logo */}
-        <Link href="/" className="shrink-0">
+        <Link href="#main-nav" className="shrink-0">
           <Image
-            src="/orquestba-logo.svg"
+            src="/Logo-horizontal.svg"
             loading="eager"
             alt="Orquesta Logo"
-            width={50}
             height={50}
+            width={150}
           />
         </Link>
 
@@ -110,6 +117,6 @@ export default function Navbar() {
           </div>
         </div>
       )}
-    </nav>
+    </motion.nav>
   );
 }
