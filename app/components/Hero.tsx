@@ -62,7 +62,7 @@ export default function Hero() {
           variants={item}
           className="text-base lg:text-lg font-light text-white/60 leading-[1.65] max-w-full lg:max-w-120 mb-8 lg:mb-12"
         >
-          Conectamos
+          Conectamos{" "}
           <strong className="font-medium text-white/85">
             Finanzas, Operaciones y Ventas
           </strong>{" "}

@@ -228,7 +228,7 @@ export default function ContactForm() {
             <div className="mt-8 lg:mt-10 flex flex-col gap-5 pt-8 lg:pt-10 border-t border-rule">
               {[
                 { label: "Email", value: "orquestba@gmail.com" },
-                { label: "Teléfono", value: "+54 11 1234 5678" },
+                { label: "Teléfono", value: "+54 9 11 65535769" },
                 { label: "Ubicación", value: "Buenos Aires, Argentina" },
               ].map(({ label, value }) => (
                 <div key={label} className="flex flex-col gap-1">

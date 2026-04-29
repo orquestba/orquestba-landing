@@ -131,7 +131,7 @@ export default function Footer() {
             </div>
             {[
               "orquestba@gmail.com",
-              "+54 11 1234 5678",
+              "+54 9 11 65535769",
               "Buenos Aires, Argentina",
             ].map((item) => (
               <div
