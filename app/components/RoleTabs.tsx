@@ -8,10 +8,10 @@ import { motion, useInView } from "framer-motion";
 type Role = "business" | "finance" | "supply" | "sales";
 
 const roles: { id: Role; label: string }[] = [
-  { id: "business", label: "Business Leaders" },
-  { id: "finance", label: "Finance Leaders" },
-  { id: "supply", label: "Supply Chain Leaders" },
-  { id: "sales", label: "Sales & Marketing Leaders" },
+  { id: "business", label: "Dirección" },
+  { id: "finance", label: "Finanzas" },
+  { id: "supply", label: "Operaciones" },
+  { id: "sales", label: "Comercial" },
 ];
 
 const panels: Record<
@@ -28,21 +28,21 @@ const panels: Record<
   business: {
     painTitle: "Tomás decisiones con información que no sabés si es confiable.",
     painBody:
-      "Como líder de negocio, necesitás visión clara y actualizada para mover la empresa hacia adelante. Pero cada reunión empieza igual: alguien trae un número distinto, nadie sabe cuál es el correcto, y la discusión termina siendo sobre los datos en lugar de sobre la estrategia.",
+      "Como Director, ves lo que cada área no puede ver: el problema no es la gente. Tenés buenos equipos en Finanzas, Operaciones y Ventas — el problema es que trabajan desde lecturas distintas. Y cuando se juntan, la reunión se convierte en un debate sobre datos en vez de una decisión sobre el negocio. No es un problema de equipos. Es un problema de estructura.",
     signals: [
       "Cada área llega con su propia versión de los resultados",
-      "No podés responder en tiempo real a cambios del mercado",
+      "Las decisiones llegan tarde porque alinear a los equipos lleva más tiempo que resolver el problema",
       "El presupuesto se hace una vez al año y queda obsoleto a los 3 meses",
-      "La estrategia se fragmenta en la ejecución porque no hay alineación",
+      "Cada área ejecuta la estrategia desde su propia interpretación",
     ],
-    ibpHeadline: "Una sola fuente de verdad para toda la organización.",
+    ibpHeadline: "La reunión deja de ser táctica y se vuelve estratégica.",
     ibpBody:
-      "IBP conecta las áreas bajo un mismo sistema de información. Cuando tomás una decisión, lo hacés con datos actualizados, validados y compartidos por toda la empresa — no con la versión de cada uno.",
+      "IBP sincroniza el ciclo de planificación de Finanzas, Operaciones y Ventas bajo una misma lógica. Cuando tomás una decisión, lo hacés con datos actualizados, validados y compartidos por toda la organización — no con la versión de cada uno.",
     outcomes: [
-      "Visibilidad integrada: finanzas, operaciones y ventas en un solo panel",
+      "Finanzas, Operaciones y Ventas en el mismo tablero de gestión",
       "Planificación continua: el presupuesto evoluciona con el negocio, no contra él",
       "Reuniones de gestión centradas en decisiones, no en reconciliar datos",
-      "Estrategia conectada con la operación en tiempo real",
+      "La estrategia deja de fragmentarse — y sustenta la decisión",
     ],
   },
   finance: {
@@ -53,60 +53,60 @@ const panels: Record<
       "El proceso de cierre mensual lleva semanas en lugar de días",
       "Las proyecciones se construyen sobre supuestos no validados con las áreas",
       "El forecast cambia cada vez que alguien actualiza una planilla",
-      "No hay trazabilidad entre los números financieros y la operación real",
+      "Nadie puede trazar un número del cierre hasta su origen en la operación",
     ],
-    ibpHeadline: "Finanzas conectada con la realidad operativa del negocio.",
+    ibpHeadline: "Finanzas deja de gestionar el cierre — gestiona el plan.",
     ibpBody:
-      "IBP integra los datos financieros con la información de ventas y operaciones. El resultado: menos tiempo consolidando, más tiempo analizando. Y proyecciones que reflejan lo que realmente está pasando.",
+      "IBP integra los datos financieros con la información de ventas y operaciones. El resultado: menos tiempo consolidando, más tiempo analizando escenarios proyectados.",
     outcomes: [
       "Cierre mensual automatizado y trazable desde una sola fuente",
-      "Forecasting financiero integrado con ventas y supply chain",
-      "Escenarios financieros actualizados en tiempo real ante cambios del negocio",
-      "KPIs financieros alineados con los indicadores operativos de cada área",
+      "Forecasting financiero integrado con ventas y operaciones",
+      "Escenarios financieros con proyección real",
+      "KPIs que pulsan la salud financiera del negocio en tiempo real",
     ],
   },
   supply: {
     painTitle:
-      "Planeás sin saber qué va a vender comercial ni qué va a aprobar finanzas.",
+      "Planeás sobre supuestos — lo que va a vender comercial y lo que va a aprobar finanzas son incógnitas que pagás caro.",
     painBody:
-      "Operaciones es la correa de transmisión del negocio, pero opera con información tardía y desconectada. Cuando ventas promete algo que no existe, o finanzas recorta un presupuesto que ya está comprometido, el impacto lo absorbés vos.",
+      "Operaciones es la correa de transmisión del negocio, pero opera con información desconectada. Cuando ventas promete algo que no existe, o finanzas recorta un presupuesto que ya está comprometido, el impacto de los sobrecostos lo absorbés vos.",
     signals: [
       "El plan de producción se rehace cada vez que cambia la demanda prevista",
       "Los niveles de inventario no responden a la realidad comercial",
-      "Los lead times de proveedores no están integrados en la planificación",
+      "Los plazos de entrega de proveedores no están integrados en la planificación",
       "Las urgencias son la norma porque no hay visibilidad anticipada",
     ],
     ibpHeadline:
-      "Supply chain planificada desde la demanda real, no desde supuestos.",
+      "La operación planificada desde la demanda real, no desde supuestos.",
     ibpBody:
-      "IBP conecta la señal de demanda de ventas con la capacidad operativa y los límites financieros. Así, la cadena de abastecimiento planifica en sintonía con el negocio — anticipando, no reaccionando.",
+      "IBP conecta la demanda real de ventas con la capacidad operativa y los límites financieros. Así, la cadena de abastecimiento planifica en sintonía con el negocio — anticipando, no reaccionando.",
     outcomes: [
-      "Planificación de demanda integrada con el forecast comercial",
-      "Visibilidad de restricciones de capacidad con anticipación suficiente",
-      "Inventarios optimizados en base a señales reales de venta",
-      "Menos urgencias, más planificación: del modo reactivo al modo anticipatorio",
+      "Planificación de demanda integrada con el pronóstico comercial",
+      "Visibilidad de restricciones de capacidad antes de que se vuelvan urgencias",
+      "Inventarios optimizados en función de señales reales de venta",
+      "Menos urgencias, más anticipación — la operación deja de correr detrás del negocio",
     ],
   },
   sales: {
     painTitle:
       "Vendés, pero la empresa no siempre puede cumplir lo que prometés.",
     painBody:
-      "El equipo comercial vive en el mercado y necesita moverse rápido. Pero cuando el stock no acompaña, el margen no cierra o el plan de demanda que construiste no lo lee nadie más, la brecha entre lo que prometés y lo que se entrega crece.",
+      "El equipo comercial hace lo que tiene que hacer: construye su pronóstico y sale a vender. El problema es que ese pronóstico no alimenta ningún proceso — operaciones no lo ve, finanzas lo desconoce. La brecha entre lo que prometés y lo que se entrega no se cierra vendiendo mejor. Es un problema de integración.",
     signals: [
-      "El forecast comercial no está integrado con la planificación de operaciones",
+      "Construís tu plan de ventas sin saber qué puede producir, entregar o financiar la empresa",
       "Los márgenes reales de cada cliente no son visibles en tiempo real",
-      "Las campañas de marketing no tienen impacto medible sobre el negocio",
+      "El pronóstico comercial se construye, pero no alimenta ninguna decisión de planificación",
       "Los compromisos de entrega se hacen sin visibilidad de stock o capacidad",
     ],
     ibpHeadline:
-      "Ventas conectada con la capacidad real de la empresa para cumplir.",
+      "Ventas deja de prometer en el vacío — y promete lo que la empresa puede cumplir.",
     ibpBody:
-      "IBP traduce la señal comercial en información útil para toda la organización. El forecast de ventas alimenta la planificación, los márgenes son visibles por canal y cliente, y los compromisos de entrega se toman con información real.",
+      "IBP conecta el pronóstico comercial con la planificación de operaciones y finanzas. Lo que Ventas compromete, la empresa lo conoce antes de que llegue al cliente. Cerrás la venta sabiendo que la empresa puede cumplir.",
     outcomes: [
-      "Forecast comercial integrado en el ciclo de planificación",
+      "El pronóstico comercial alimenta la planificación — y la planificación responde al pronóstico",
       "Visibilidad de margen por producto, canal y cliente",
       "Compromisos de entrega basados en stock y capacidad real",
-      "Impacto de las acciones comerciales medible sobre el resultado del negocio",
+      "El equipo comercial como punto de partida del ciclo de planificación del negocio",
     ],
   },
 };
@@ -156,19 +156,16 @@ export default function RoleTabs() {
       <div className="max-w-345 mx-auto px-5 md:px-8 lg:px-15">
         {/* Header */}
         <motion.div variants={item} className="mb-10 lg:mb-14">
-          <div className="eyebrow eyebrow-muted">El diagnóstico</div>
+          <div className="eyebrow eyebrow-muted">Lo que frena tu empresa</div>
 
           <Title>
-            El problema no es el mismo para{" "}
-            <Title.Highlight>todos.</Title.Highlight>
+            Lo llaman distinto. <Title.Highlight>Es lo mismo.</Title.Highlight>
           </Title>
 
           <p className="text-[15px] lg:text-[17px] text-ink-3 leading-[1.7] max-w-160">
-            Cada área siente la falta de estructura de una forma distinta. Pero
-            el origen es siempre el mismo: la información no fluye.{" "}
-            <span className="font-medium text-ink-2">
-              IBP resuelve el problema desde la raíz — para todos a la vez.
-            </span>
+            Cada área lo siente diferente aunque el dolor es compartido.
+            Trabajar por silos sale caro — desconecta la estrategia de la
+            operación.
           </p>
         </motion.div>
 

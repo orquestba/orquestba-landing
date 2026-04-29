@@ -62,12 +62,12 @@ export default function Hero() {
           variants={item}
           className="text-base lg:text-lg font-light text-white/60 leading-[1.65] max-w-full lg:max-w-120 mb-8 lg:mb-12"
         >
-          Orquesta conecta{" "}
+          Conectamos
           <strong className="font-medium text-white/85">
-            finanzas, operaciones y ventas
+            Finanzas, Operaciones y Ventas
           </strong>{" "}
-          en un sistema de planificación integrado — para que cada área trabaje
-          con la misma información y cada decisión llegue a tiempo.
+          bajo la misma lectura. Traducimos el dato en dirección de negocio — el
+          idioma que todos buscaban.
         </motion.p>
 
         <motion.div

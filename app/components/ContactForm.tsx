@@ -227,7 +227,7 @@ export default function ContactForm() {
 
             <div className="mt-8 lg:mt-10 flex flex-col gap-5 pt-8 lg:pt-10 border-t border-rule">
               {[
-                { label: "Email", value: "info@orquestba.com.ar" },
+                { label: "Email", value: "orquestba@gmail.com" },
                 { label: "Teléfono", value: "+54 11 1234 5678" },
                 { label: "Ubicación", value: "Buenos Aires, Argentina" },
               ].map(({ label, value }) => (

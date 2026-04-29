@@ -6,6 +6,7 @@ import Link from "next/link";
 import Button from "./shared/Button";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import horizontalLogo from "@/public/Logo-horizontal-azul.svg";
 
 const links = [
   { href: "#metodo", label: "Método" },
@@ -31,7 +32,7 @@ export default function Navbar() {
       animate={{ opacity: 1 }}
       transition={{
         duration: 0.5,
-        ease: [0.25, 0.1, 0.25, 1], // smooth real
+        ease: [0.25, 0.1, 0.25, 1], // smooth
       }}
       id="main-nav"
       className="sticky top-0 z-100 bg-off-white border-b border-rule h-17 flex items-center"
@@ -41,9 +42,9 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="#main-nav" className="shrink-0">
           <Image
-            src="/Logo-horizontal.svg"
+            src={horizontalLogo}
             loading="eager"
-            alt="Orquesta Logo"
+            alt="Orquestba Logo"
             height={50}
             width={150}
           />

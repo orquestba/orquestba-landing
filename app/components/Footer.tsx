@@ -67,7 +67,7 @@ export default function Footer() {
               height={100}
             />
             <span className="text-[11px] text-white tracking-[0.08em] mb-4 md:mb-5">
-              Our Request to Data · IBP
+              Our Request for Data · IBP
             </span>
             <p className="text-[13px] text-white/35 leading-[1.65] mb-5 md:mb-6 max-w-xs lg:max-w-none">
               Conectamos datos, áreas y decisiones para que tu empresa tenga
@@ -130,7 +130,7 @@ export default function Footer() {
               Contacto
             </div>
             {[
-              "info@orquestba.com.ar",
+              "orquestba@gmail.com",
               "+54 11 1234 5678",
               "Buenos Aires, Argentina",
             ].map((item) => (

@@ -48,15 +48,16 @@ export async function sendContactEmail(
   try {
     await resend.emails.send({
       // Replace with your verified domain once set up: "Orquestba <contacto@orquestba.com.ar>"
-      from: "Orquestba <onboarding@resend.dev>",
-      to: "alextraverso6@gmail.com",
-      // to: "orquestba@gmail.com",
+      // from: "Orquestba <onboarding@resend.dev>",
+      from: "Orquestba <contacto@orquestba.com>",
+      // to: "alextraverso6@gmail.com",
+      to: "orquestba@gmail.com",
       replyTo: email,
       subject: `Nuevo contacto — ${nombre} ${apellido} (${empresa})`,
       html: `
         <div style="font-family:system-ui,sans-serif;max-width:560px;color:#171210;">
           <h2 style="font-size:20px;margin:0 0 4px;">Nuevo mensaje de contacto</h2>
-          <p style="color:#7a726a;font-size:13px;margin:0 0 24px;">Desde el formulario de orquestba.com.ar</p>
+          <p style="color:#7a726a;font-size:13px;margin:0 0 24px;">Desde el formulario de orquestba.com</p>
           <table style="width:100%;border-collapse:collapse;">
             <tr>
               <td style="padding:8px 0;color:#7a726a;font-size:13px;width:90px;vertical-align:top;">Nombre</td>

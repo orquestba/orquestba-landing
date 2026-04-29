@@ -115,7 +115,8 @@ export default function Aspiration() {
           <div className="eyebrow eyebrow-light">El destino</div>
 
           <Title className="text-white">
-            ¿Qué estructura querés que <Title.Highlight>tenga?</Title.Highlight>
+            ¿Qué estructura querés que{" "}
+            <Title.Highlight>tenga tu empresa?</Title.Highlight>
           </Title>
 
           <p className="text-[15px] lg:text-[17px] font-light text-white/55 leading-[1.7] max-w-160 mt-4 lg:mt-5">
