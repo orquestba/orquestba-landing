@@ -8,25 +8,25 @@ const phases = [
   {
     num: "01",
     name: "Base",
-    desc: "Relevamos la situación actual para entender dónde está parada la empresa y qué información ya existe.",
+    desc: "Mapeamos el punto de partida: qué información existe, cómo fluye entre las áreas y dónde se rompe la cadena.",
     timing: "2–3 semanas",
   },
   {
     num: "02",
     name: "Estructura",
-    desc: "Organizamos la información, definimos criterios y alineamos las áreas bajo una lógica común.",
+    desc: "Diseñamos la arquitectura de gestión: los criterios, indicadores y cadencia que hacen posible que Finanzas, Operaciones y Ventas planifiquen desde la misma lectura.",
     timing: "3–4 semanas",
   },
   {
     num: "03",
     name: "Sistema",
-    desc: "Desarrollamos el portal de gestión empresarial que integra áreas clave y soporta la planificación.",
+    desc: "Construimos el portal web a medida: los tableros, indicadores y escenarios proyectados que tu empresa necesita para transformar el dato en dirección.",
     timing: "6–10 semanas",
   },
   {
     num: "04",
-    name: "Mejora continua",
-    desc: "Acompañamos el uso del sistema, hacemos ajustes y ayudamos a la empresa a seguir mejorando.",
+    name: "Ciclo",
+    desc: "Cuando el ciclo está en marcha, lo que sigue es mejorar. Cada período planificado deja a la empresa mejor preparada para el siguiente — bienvenida a la Mejora Continua.",
     timing: "Continuo",
   },
 ];
@@ -73,14 +73,15 @@ export default function Method() {
         variants={item}
         className="max-w-345 mx-auto px-5 md:px-8 lg:px-15 mb-10 lg:mb-14"
       >
-        <div className="eyebrow">Cómo trabajamos</div>
+        <div className="eyebrow">El camino</div>
 
         <Title>
-          Un método. Cuatro etapas. <Title.Highlight>Sin humo.</Title.Highlight>
+          Construimos el puente entre tu punto de{" "}
+          <Title.Highlight>partida y tu destino</Title.Highlight>
         </Title>
         <p className="text-[15px] lg:text-[17px] text-ink-3 leading-[1.7] max-w-160 mt-4 lg:mt-5">
-          Conectamos datos, áreas y decisiones para que tu empresa tenga
-          claridad, dirección y capacidad de adaptación.
+          Conectamos datos, áreas y decisiones. El dato alinea, las áreas
+          deciden.
         </p>
       </motion.div>
 
@@ -117,9 +118,9 @@ export default function Method() {
                 <p className="text-sm lg:text-[14.5px] text-ink-3 leading-[1.65] mb-5 lg:mb-7">
                   {phase.desc}
                 </p>
-                <div className="text-[10px] font-bold tracking-[0.18em] uppercase text-copper">
+                {/* <div className="text-[10px] font-bold tracking-[0.18em] uppercase text-copper">
                   {phase.timing}
-                </div>
+                </div> */}
               </div>
             ))}
           </motion.div>

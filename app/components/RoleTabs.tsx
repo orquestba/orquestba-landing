@@ -159,7 +159,7 @@ export default function RoleTabs() {
           <div className="eyebrow eyebrow-muted">Lo que frena tu empresa</div>
 
           <Title>
-            Lo llaman distinto. <Title.Highlight>Es lo mismo.</Title.Highlight>
+            Lo llaman distinto. <Title.Highlight>Es lo mismo</Title.Highlight>
           </Title>
 
           <p className="text-[15px] lg:text-[17px] text-ink-3 leading-[1.7] max-w-160">

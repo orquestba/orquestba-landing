@@ -5,21 +5,21 @@ import Title from "./shared/Title";
 
 const cases = [
   {
-    label: "Caso A",
-    statement: "Introducís IBP por primera vez.",
-    body: "Tu empresa no tiene un sistema integrado. Los datos están dispersos, las áreas operan en silos y las decisiones se toman sin visibilidad común. Necesitás construir desde la base.",
+    label: "Inicial",
+    statement: "Sabés que algo no funciona",
+    body: "Cada área trabaja desde su propia versión de los datos. Las reuniones no generan decisiones — generan más reuniones. Algo tiene que cambiar, pero no sabés por dónde empezar.",
     signal: "Punto de partida: cero",
   },
   {
-    label: "Caso B",
-    statement: "Tenés piezas del sistema pero no están integradas.",
-    body: "Ya existían procesos, herramientas o KPIs, pero hay áreas que quedaron afuera, datos que no se conectan o indicadores que no reflejan la realidad. Necesitás refinar sin desarmar lo que funciona.",
+    label: "Intermedio",
+    statement: "Tenés los datos. Te falta el sistema",
+    body: "Tenés reportes, tenés reuniones, tenés métricas. Pero cada área habla desde su propio tablero y la gestión integrada sigue siendo una promesa. El dato existe — lo que falta es que trabaje junto.",
     signal: "Punto de partida: parcial",
   },
   {
-    label: "Caso C",
-    statement: "Tu sistema funciona, pero querés ir más lejos.",
-    body: "Contás con un sistema operativo, pero querés mayor automatización, forecasting más preciso, nuevas fuentes de datos o expansión hacia otras unidades de negocio. Necesitás subir el nivel de madurez.",
+    label: "Avanzado",
+    statement: "Entendés tu negocio. Necesitás escalarlo",
+    body: "Tu sistema de gestión es confiable. Las áreas se hablan, los datos fluyen y las decisiones tienen respaldo. Es momento de escalar.",
     signal: "Punto de partida: avanzado",
   },
 ];
@@ -69,14 +69,11 @@ export default function Diagnostic() {
         <div className="mb-10 lg:mb-14">
           <div className="eyebrow eyebrow-muted">El punto de partida</div>
           <Title>
-            ¿Dónde está tu empresa <Title.Highlight>hoy?</Title.Highlight>
+            Identifiquemos el{" "}
+            <Title.Highlight>punto de partida</Title.Highlight>
           </Title>
           <p className="text-[15px] lg:text-[17px] text-ink-3 leading-[1.7] max-w-160">
-            No hay un perfil único de empresa que necesite IBP. Trabajamos con
-            organizaciones en distintos momentos de su recorrido.{" "}
-            <span className="font-medium text-ink-2">
-              El punto de entrada depende de dónde estés parado.
-            </span>
+            No hay un solo camino para la integración.{" "}
           </p>
         </div>
 

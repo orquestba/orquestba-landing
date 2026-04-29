@@ -54,7 +54,7 @@ export default function Hero() {
           <span className="block">Tu empresa tiene datos.</span>
           <span className="block">
             Lo que necesita es{" "}
-            <span className="text-copper-light italic">claridad.</span>
+            <span className="text-copper-light italic">claridad</span>
           </span>
         </motion.h1>
 

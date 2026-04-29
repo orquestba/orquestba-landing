@@ -47,8 +47,7 @@ export async function sendContactEmail(
 
   try {
     await resend.emails.send({
-      // Replace with your verified domain once set up: "Orquestba <contacto@orquestba.com.ar>"
-      // from: "Orquestba <onboarding@resend.dev>",
+      // from: "Orquestba <onboarding@resend.dev>" (testing),
       from: "Orquestba <contacto@orquestba.com>",
       // to: "alextraverso6@gmail.com",
       to: "orquestba@gmail.com",
