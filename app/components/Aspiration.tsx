@@ -112,7 +112,7 @@ export default function Aspiration() {
         <motion.div variants={item} className="mb-10 lg:mb-14">
           <div className="eyebrow eyebrow-light">El destino</div>
 
-          <Title className="text-white">
+          <Title className="text-white max-w-150">
             Tu empresa habita la realidad que{" "}
             <Title.Highlight>imaginaste</Title.Highlight>
           </Title>

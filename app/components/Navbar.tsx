@@ -67,7 +67,7 @@ export default function Navbar() {
         <div className="hidden lg:block">
           <Button
             color="navy"
-            href="#diagnostico"
+            href="#modela"
             icon={<ArrowRight size={14} className="opacity-70" />}
           >
             Iniciar diagnóstico

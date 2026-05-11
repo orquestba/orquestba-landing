@@ -26,6 +26,8 @@ const item = {
   },
 };
 
+// TODO: Cuando tengamos la demo linkear boton de "Ver como funciona" a esta demo
+
 export default function Hero() {
   return (
     <section className="bg-navy grid grid-cols-1 lg:grid-cols-2 relative overflow-hidden min-h-[80vh] lg:min-h-[calc(100vh-68px)]">
@@ -51,9 +53,8 @@ export default function Hero() {
           variants={item}
           className="text-[38px] md:text-[52px] lg:text-[68px] leading-[1.05] text-white mb-5"
         >
-          <span className="block">Tu empresa tiene datos.</span>
           <span className="block">
-            Lo que necesita es{" "}
+            Tu empresa tiene datos. Lo que necesita es{" "}
             <span className="text-copper-light italic">claridad</span>
           </span>
         </motion.h1>
@@ -74,12 +75,13 @@ export default function Hero() {
           variants={item}
           className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5 mb-10 lg:mb-18"
         >
-          <Button href="#diagnostico" icon={<ArrowRight size={16} />}>
+          <Button href="#modela" icon={<ArrowRight size={16} />}>
             Iniciar diagnóstico
           </Button>
-          <Button variant="ghost" href="#metodo">
+
+          {/* <Button variant="ghost" href="#modela">
             Ver cómo funciona
-          </Button>
+          </Button> */}
         </motion.div>
       </motion.div>
 
