@@ -34,10 +34,10 @@ export default function Navbar() {
         ease: [0.25, 0.1, 0.25, 1], // smooth
       }}
       id="main-nav"
-      className="sticky top-0 z-100 bg-off-white border-b border-rule h-17 flex items-center"
+      className="sticky top-0 z-100 bg-off-white flex flex-col"
       style={{ boxShadow: scrolled ? "0 1px 20px rgba(0,0,0,0.08)" : "none" }}
     >
-      <div className="max-w-345 mx-auto px-5 md:px-8 lg:px-15 flex items-center justify-between w-full">
+      <div className="max-w-345 mx-auto px-5 py-6 md:px-8 lg:py-4 lg:px-15 flex items-center justify-between w-full">
         {/* Logo */}
         <Link href="#main-nav" className="shrink-0">
           <Image
@@ -53,12 +53,12 @@ export default function Navbar() {
         <ul className="hidden lg:flex items-center gap-9 list-none">
           {links.map((link) => (
             <li key={link.href}>
-              <a
+              <Link
                 href={link.href}
-                className="text-sm text-ink-2 no-underline transition-colors hover:text-navy"
+                className="text-md text-ink-2 no-underline transition-colors hover:text-navy"
               >
                 {link.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -66,7 +66,7 @@ export default function Navbar() {
         {/* Desktop CTA */}
         <div className="hidden lg:block">
           <Button
-            color="navy"
+            color="copper"
             href="#modela"
             icon={<ArrowRight size={14} className="opacity-70" />}
           >
@@ -94,20 +94,20 @@ export default function Navbar() {
 
       {/* Mobile menu dropdown */}
       {menuOpen && (
-        <div className="lg:hidden absolute top-17 left-0 right-0 bg-off-white border-b border-rule px-5 py-6 flex flex-col gap-1 z-99 shadow-lg">
+        <div className="lg:hidden border-t border-rule/30 px-5 py-6 flex flex-col gap-1">
           {links.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="text-[15px] text-ink-2 no-underline py-3 border-b border-rule/50 last:border-b-0 transition-colors hover:text-navy"
               onClick={() => setMenuOpen(false)}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
           <div className="pt-4">
             <Button
-              color="navy"
+              color="copper"
               href="#diagnostico"
               className="w-full justify-center"
               icon={<ArrowRight size={14} className="opacity-70" />}
