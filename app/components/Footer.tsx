@@ -5,14 +5,24 @@ import { getCurrentYear } from "../utils/getCurrentYear";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 
-const navLinks = [
-  "Inicio",
-  "Cómo trabajamos",
-  "Servicios",
-  "Recursos",
-  "Sobre nosotros",
+const links = [
+  { href: "#contexto", label: "Contexto" },
+  { href: "#metodo", label: "Método" },
+  { href: "#tu-empresa", label: "Tu empresa" },
+  { href: "#modela", label: "Modelá" },
 ];
-const serviceLinks = ["Sistema IBP", "Asesoría en Análisis de Negocio"];
+
+const serviceLinks = [
+  {
+    href: "#tu-empresa",
+    label: "Instalas IBP Framework",
+  },
+  {
+    href: "#tu-empresa",
+    label: "Asesoría en Análisis de Negocio",
+  },
+  ,
+];
 
 export default function Footer() {
   const ref = useRef(null);
@@ -50,7 +60,7 @@ export default function Footer() {
       initial="hidden"
       animate={isInView ? "show" : "hidden"}
       className="bg-footer-bg pt-16 md:pt-18 pb-8 md:pb-10"
-      id="contacto"
+      id="footer"
     >
       <motion.div
         variants={item}
@@ -67,11 +77,10 @@ export default function Footer() {
               height={100}
             />
             <span className="text-[11px] text-white tracking-[0.08em] mb-4 md:mb-5">
-              Our Request for Data · IBP
+              Planificacion Integrada de Negocio · IBP
             </span>
             <p className="text-[13px] text-white/35 leading-[1.65] mb-5 md:mb-6 max-w-xs lg:max-w-none">
-              Conectamos datos, áreas y decisiones para que tu empresa tenga
-              claridad, dirección y capacidad de adaptación.
+              Traducimos el dato en dirección de negocio.
             </p>
             <div className="flex gap-3">
               <Link
@@ -92,14 +101,14 @@ export default function Footer() {
               Navegación
             </div>
             <ul className="flex flex-col gap-2.5 list-none">
-              {navLinks.map((label) => (
-                <li key={label}>
-                  <a
-                    href="#"
+              {links.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
                     className="text-sm text-white/35 no-underline transition-colors hover:text-white/75"
                   >
-                    {label}
-                  </a>
+                    {link.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -111,14 +120,14 @@ export default function Footer() {
               Servicios
             </div>
             <ul className="flex flex-col gap-2.5 list-none">
-              {serviceLinks.map((label) => (
-                <li key={label}>
-                  <a
-                    href="#"
+              {serviceLinks.map((service) => (
+                <li key={service!.label}>
+                  <Link
+                    href={service!.href}
                     className="text-sm text-white/35 no-underline transition-colors hover:text-white/75"
                   >
-                    {label}
-                  </a>
+                    {service?.label}
+                  </Link>
                 </li>
               ))}
             </ul>

@@ -9,11 +9,10 @@ import { motion } from "framer-motion";
 import horizontalLogo from "@/public/Logo-horizontal-azul.svg";
 
 const links = [
+  { href: "#contexto", label: "Contexto" },
   { href: "#metodo", label: "Método" },
-  { href: "#servicios", label: "Servicios" },
-  { href: "#recursos", label: "Recursos" },
-  { href: "#nosotros", label: "Nosotros" },
-  { href: "#contacto", label: "Contacto" },
+  { href: "#tu-empresa", label: "Tu empresa" },
+  { href: "#modela", label: "Modelá" },
 ];
 
 export default function Navbar() {
@@ -71,7 +70,7 @@ export default function Navbar() {
             href="#diagnostico"
             icon={<ArrowRight size={14} className="opacity-70" />}
           >
-            Agendar diagnóstico
+            Iniciar diagnóstico
           </Button>
         </div>
 
@@ -113,7 +112,7 @@ export default function Navbar() {
               className="w-full justify-center"
               icon={<ArrowRight size={14} className="opacity-70" />}
             >
-              Agendar diagnóstico
+              Iniciar diagnóstico
             </Button>
           </div>
         </div>

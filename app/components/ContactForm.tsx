@@ -45,6 +45,7 @@ function FormContent({ onReset }: { onReset: () => void }) {
       action={formAction}
       noValidate
       className="flex flex-col gap-5"
+      id="modela"
     >
       {/* Nombre + Apellido */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -209,7 +210,7 @@ export default function ContactForm() {
       initial="hidden"
       animate={isInView ? "show" : "hidden"}
       className="py-16 md:py-20 lg:py-30 bg-cream"
-      id="contacto"
+      id="modela"
     >
       <div className="max-w-345 mx-auto px-5 md:px-8 lg:px-15">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
@@ -217,12 +218,11 @@ export default function ContactForm() {
           <motion.div variants={item}>
             <div className="eyebrow">Contacto</div>
             <Title>
-              ¿Listo para dar el{" "}
-              <Title.Highlight>próximo paso?</Title.Highlight>
+              ¿Qué es <Title.Highlight>planificar?</Title.Highlight>
             </Title>
             <p className="text-[15px] lg:text-[17px] text-ink-3 leading-[1.7] mt-4 lg:mt-5 max-w-120">
-              Completá el formulario y en menos de 48 horas te contactamos para
-              coordinar una primera conversación sin compromiso.
+              Planificar el futuro no es decidir el próximo periodo. Es decidir
+              cómo alcanzas ese próximo periodo.
             </p>
 
             <div className="mt-8 lg:mt-10 flex flex-col gap-5 pt-8 lg:pt-10 border-t border-rule">

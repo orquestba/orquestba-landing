@@ -26,7 +26,7 @@ const panels: Record<
   }
 > = {
   business: {
-    painTitle: "Tomás decisiones con información que no sabés si es confiable.",
+    painTitle: "Tomás decisiones con información que no sabes si es confiable.",
     painBody:
       "Como Director, ves lo que cada área no puede ver: el problema no es la gente. Tenés buenos equipos en Finanzas, Operaciones y Ventas — el problema es que trabajan desde lecturas distintas. Y cuando se juntan, la reunión se convierte en un debate sobre datos en vez de una decisión sobre el negocio. No es un problema de equipos. Es un problema de estructura.",
     signals: [
@@ -156,7 +156,7 @@ export default function RoleTabs() {
       <div className="max-w-345 mx-auto px-5 md:px-8 lg:px-15">
         {/* Header */}
         <motion.div variants={item} className="mb-10 lg:mb-14">
-          <div className="eyebrow eyebrow-muted">Lo que frena tu empresa</div>
+          <div className="eyebrow eyebrow-muted">Lo que frena a tu empresa</div>
 
           <Title>
             Lo llaman distinto. <Title.Highlight>Es lo mismo</Title.Highlight>

@@ -43,7 +43,7 @@ export default function Hero() {
         >
           <div className="w-1.5 h-1.5 bg-copper-light rounded-full" />
           <span className="text-[11px] md:text-xs font-medium text-white/60 tracking-[0.08em]">
-            Integrated Business Planning · IBP
+            Planificación Integrada de Negocio · IBP
           </span>
         </motion.div>
 
@@ -75,7 +75,7 @@ export default function Hero() {
           className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5 mb-10 lg:mb-18"
         >
           <Button href="#diagnostico" icon={<ArrowRight size={16} />}>
-            Agendar diagnóstico gratuito
+            Iniciar diagnóstico
           </Button>
           <Button variant="ghost" href="#metodo">
             Ver cómo funciona

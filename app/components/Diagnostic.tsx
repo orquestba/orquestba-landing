@@ -6,19 +6,19 @@ import Title from "./shared/Title";
 const cases = [
   {
     label: "Inicial",
-    statement: "Sabés que algo no funciona",
-    body: "Cada área trabaja desde su propia versión de los datos. Las reuniones no generan decisiones — generan más reuniones. Algo tiene que cambiar, pero no sabés por dónde empezar.",
+    statement: "Cada área tiene su versión. El negocio no tiene la suya",
+    body: "Tus áreas operan en silos. No hay una lectura unificada del negocio. Tu empresa no tiene un sistema de gestión integrado. Los datos están dispersos y las decisiones se toman sin visibilidad comun. Necesitas construir desde la base.",
     signal: "Punto de partida: cero",
   },
   {
     label: "Intermedio",
-    statement: "Tenés los datos. Te falta el sistema",
-    body: "Tenés reportes, tenés reuniones, tenés métricas. Pero cada área habla desde su propio tablero y la gestión integrada sigue siendo una promesa. El dato existe — lo que falta es que trabaje junto.",
+    statement: "Tenés procesos. Tenés datos. Pero conviven sin integrarse",
+    body: "Ya existían procesos, herramientas o KPIs, pero cuando queres cruzar los números, algo siempre falta. Necesitas refinar sin desarmar lo que funciona.",
     signal: "Punto de partida: parcial",
   },
   {
     label: "Avanzado",
-    statement: "Entendés tu negocio. Necesitás escalarlo",
+    statement: "Entendés tu negocio, confias en tu sistema y queres escalar",
     body: "Tu sistema de gestión es confiable. Las áreas se hablan, los datos fluyen y las decisiones tienen respaldo. Es momento de escalar.",
     signal: "Punto de partida: avanzado",
   },
@@ -60,7 +60,7 @@ export default function Diagnostic() {
       initial="hidden"
       animate={isInView ? "show" : "hidden"}
       className="py-16 md:py-20 lg:pt-30 lg:pb-25 bg-off-white"
-      id="servicios"
+      id="contexto"
     >
       <motion.div
         variants={item}

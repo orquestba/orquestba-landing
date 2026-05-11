@@ -11,42 +11,40 @@ const paths = [
     title: "Asesoría en Análisis de Negocio",
     body: (
       <>
-        Para organizaciones que necesitan{" "}
-        <strong className="font-medium text-white/80">
-          entender su situación actual
-        </strong>{" "}
-        antes de dar el salto a un sistema integrado. Construimos la base desde
-        adentro hacia afuera.
+        Tu empresa genera información. El problema es que cada área la guarda,
+        la interpreta y la usa por separado o no sabe interpretarla por falta de
+        comunicación entre áreas. Antes de conectar, hay que entender que hay
+        que conectar. Mapeamos tu modelo de gestión actual y diseñamos la
+        arquitectura que orqueste tus datos.
       </>
     ),
     items: [
-      "Diagnóstico de la situación actual de información y procesos",
-      "Organización de datos y criterios de gestión por área",
-      "Definición de la arquitectura base para escalar",
-      "Preparación para la implementación de un sistema integrado",
+      "Diagnóstico del modelo de gestión actual",
+      "Organización de fuentes de datos y criterios de medición",
+      " Diseño de la arquitectura de información",
+      "Hoja de ruta hacia la integración",
     ],
-    ctaLabel: "Empezar por el diagnóstico",
+    ctaLabel: "Ir",
   },
   {
     tag: "Para empresas listas para sistematizar",
-    title: "Sistema IBP",
+    title: "Instalas IBP Framework",
     body: (
       <>
-        Para organizaciones que quieren{" "}
-        <strong className="font-medium text-white/80">
-          conectar sus áreas en una sola plataforma de gestión
-        </strong>{" "}
-        — con visibilidad en tiempo real, forecasting integrado y planificación
-        continua.
+        Conectamos Finanzas, Ventas y Operaciones bajo un sistema de
+        Planificación Integrada de Negocio. IBP no es un software - es el
+        framework de trabajo alrededor del cual tu empresa toma decisiones.
+        Comercial sabe lo que puede prometer. Operaciones sabe lo que necesita
+        para cumplirlo. Finanzas reconcilia el plan.
       </>
     ),
     items: [
-      "Integración de finanzas, ventas y operaciones en un solo sistema",
-      "KPIs e indicadores clave en tiempo real para la dirección",
-      "Forecasting, presupuestación y planificación de escenarios",
-      "Acompañamiento continuo y evolución del sistema con el negocio",
+      "Un tablero de gestión para Finanzas, Operaciones y Ventas",
+      "KPIs y forecasting integrados en tiempo real",
+      "Simulación de escenarios",
+      " Acompañamiento en la adopción de IBP como framework",
     ],
-    ctaLabel: "Ver el sistema IBP",
+    ctaLabel: "Empecemos",
   },
 ];
 
@@ -88,7 +86,7 @@ export default function Aspiration() {
       initial="hidden"
       animate={isInView ? "show" : "hidden"}
       className="py-16 md:py-20 lg:py-30 bg-navy relative overflow-hidden"
-      id="nosotros"
+      id="tu-empresa"
     >
       {/* Background glows */}
       <div
@@ -115,14 +113,12 @@ export default function Aspiration() {
           <div className="eyebrow eyebrow-light">El destino</div>
 
           <Title className="text-white">
-            ¿Qué estructura querés que{" "}
-            <Title.Highlight>tenga tu empresa?</Title.Highlight>
+            Tu empresa habita la realidad que{" "}
+            <Title.Highlight>imaginaste</Title.Highlight>
           </Title>
 
           <p className="text-[15px] lg:text-[17px] font-light text-white/55 leading-[1.7] max-w-160 mt-4 lg:mt-5">
-            No hay un único punto de entrada. Trabajamos desde donde estás — ya
-            sea que estés introduciendo IBP por primera vez, refinando lo que
-            existe, o subiendo el nivel de madurez de tu sistema.
+            Diseñemos como
           </p>
         </motion.div>
 
@@ -161,7 +157,7 @@ export default function Aspiration() {
               </ul>
               <Button
                 variant="link"
-                href="#diagnostico"
+                href="#modela"
                 icon={<ArrowRight size={14} />}
               >
                 {p.ctaLabel}
@@ -171,7 +167,7 @@ export default function Aspiration() {
         </motion.div>
 
         {/* CTA row */}
-        <motion.div
+        {/* <motion.div
           variants={item}
           className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between pt-8 lg:pt-10 border-t border-white/8 mb-8 lg:mb-10"
           id="diagnostico"
@@ -190,10 +186,10 @@ export default function Aspiration() {
           </motion.div>
           <div className="flex flex-col items-start lg:items-end gap-3 shrink-0">
             <Button size="lg" href="#" icon={<ArrowRight size={18} />}>
-              Agendar diagnóstico gratuito
+              Iniciar diagnóstico
             </Button>
           </div>
-        </motion.div>
+        </motion.div> */}
 
         {/* ISO note */}
         <motion.div

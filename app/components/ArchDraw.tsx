@@ -136,7 +136,7 @@ const ArchDraw = () => {
           <circle cx="600" cy="160" r="5" fill="#B8692A" opacity="0.7" />
           <circle cx="940" cy="160" r="5" fill="#B8692A" opacity="0.55" />
           <circle cx="1200" cy="160" r="5" fill="#B8692A" opacity="0.4" />
-          <text
+          {/* <text
             x="720"
             y="190"
             fontFamily="DM Sans,sans-serif"
@@ -146,7 +146,7 @@ const ArchDraw = () => {
             letterSpacing="3"
           >
             PROCESO COMPLETO · 4–6 MESES
-          </text>
+          </text> */}
         </svg>
       </div>
     </>
