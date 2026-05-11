@@ -103,9 +103,9 @@ export default function Diagnostic() {
               <p className="text-sm text-ink-3 leading-[1.6] mb-5 lg:mb-6">
                 {c.body}
               </p>
-              <span className="inline-flex items-center gap-2 text-xs font-semibold text-copper bg-copper-pale px-3 py-1.25 rounded-[20px]">
+              {/* <span className="inline-flex items-center gap-2 text-xs font-semibold text-copper bg-copper-pale px-3 py-1.25 rounded-[20px]">
                 {c.signal}
-              </span>
+              </span> */}
             </div>
           ))}
         </motion.div>

@@ -67,8 +67,7 @@ export default function Hero() {
           <strong className="font-medium text-white/85">
             Finanzas, Operaciones y Ventas
           </strong>{" "}
-          bajo la misma lectura. Traducimos el dato en dirección de negocio — el
-          idioma que todos buscaban.
+          bajo la misma lectura. Traducimos el dato en dirección de negocio.
         </motion.p>
 
         <motion.div

@@ -28,14 +28,14 @@ const paths = [
   },
   {
     tag: "Para empresas listas para sistematizar",
-    title: "Instalas IBP Framework",
+    title: "Instalás ORQUESTBA Framework",
     body: (
       <>
         Conectamos Finanzas, Ventas y Operaciones bajo un sistema de
-        Planificación Integrada de Negocio. IBP no es un software - es el
-        framework de trabajo alrededor del cual tu empresa toma decisiones.
-        Comercial sabe lo que puede prometer. Operaciones sabe lo que necesita
-        para cumplirlo. Finanzas reconcilia el plan.
+        Planificación Integrada de Negocio. El sistema portal es el centro de
+        gestión desde donde tu empresa planifica, decide y ejecuta bajo la misma
+        lectura. Comercial sabe lo que puede prometer. Operaciones sabe lo que
+        necesita para cumplirlo. Finanzas reconcilia el plan.
       </>
     ),
     items: [
@@ -117,8 +117,8 @@ export default function Aspiration() {
             <Title.Highlight>imaginaste</Title.Highlight>
           </Title>
 
-          <p className="text-[15px] lg:text-[17px] font-light text-white/55 leading-[1.7] max-w-160 mt-4 lg:mt-5">
-            Diseñemos como
+          <p className="italic text-[15px] lg:text-[17px] font-light text-white/55 leading-[1.7] max-w-160 mt-4 lg:mt-5">
+            Diseñemos cómo
           </p>
         </motion.div>
 

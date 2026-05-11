@@ -15,7 +15,7 @@ const links = [
 const serviceLinks = [
   {
     href: "#tu-empresa",
-    label: "Instalas IBP Framework",
+    label: "Instalás ORQUESTBA Framework",
   },
   {
     href: "#tu-empresa",

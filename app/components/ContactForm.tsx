@@ -148,7 +148,7 @@ function FormContent({ onReset }: { onReset: () => void }) {
         <textarea
           id="mensaje"
           name="mensaje"
-          placeholder="Contanos brevemente qué está pasando en tu empresa y cómo creés que podemos ayudarte..."
+          placeholder="Contanos brevemente qué está pasando en tu empresa."
           rows={5}
           className={`${inputBase} resize-none ${err.mensaje ? "border-red-400" : "border-rule"}`}
         />
