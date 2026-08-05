@@ -4,7 +4,9 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { ArrowRight } from "lucide-react";
 import Title from "./shared/Title";
+import Button from "./shared/Button";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -32,6 +34,9 @@ const cases = [
 const LEVEL_ACTIVE = "#d4854a"; // --color-copper-light
 const LEVEL_IDLE = "rgba(255,255,255,0.35)";
 
+// Viewport line that decides which block is "being read".
+const READING_LINE = "55%";
+
 export default function Diagnostic() {
   const rootRef = useRef<HTMLElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -39,7 +44,6 @@ export default function Diagnostic() {
   const streamRef = useRef<HTMLDivElement>(null);
   const levelRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const articleRefs = useRef<(HTMLElement | null)[]>([]);
-  const headingRefs = useRef<(HTMLHeadingElement | null)[]>([]);
 
   useGSAP(
     () => {
@@ -110,17 +114,17 @@ export default function Diagnostic() {
 
           setActive(0);
 
-          // One trigger per article, keyed to its heading — the active
-          // stage follows what the reader is actually looking at, not a
-          // scroll-percentage estimate of it.
+          // The active level is whichever block straddles the reading line.
+          // Using the same line for start and end keeps it symmetric: scrolling
+          // back up flips states at the exact points scrolling down did.
           cases.forEach((_, i) => {
-            const heading = headingRefs.current[i];
-            if (!heading) return;
+            const article = articleRefs.current[i];
+            if (!article) return;
 
             ScrollTrigger.create({
-              trigger: heading,
-              start: "top 38%",
-              end: "bottom 38%",
+              trigger: article,
+              start: `top ${READING_LINE}`,
+              end: `bottom ${READING_LINE}`,
               onEnter: () => setActive(i),
               onEnterBack: () => setActive(i),
             });
@@ -130,7 +134,26 @@ export default function Diagnostic() {
 
       document.fonts?.ready.then(() => ScrollTrigger.refresh());
 
-      return () => mm.revert();
+      // The tabs in #problema change that section's height (measured: up to
+      // 89px), which moves this section's pin start. GSAP refreshes on window
+      // resize but not on layout changes like that one.
+      let lastHeight = document.body.offsetHeight;
+      let raf = 0;
+      const ro = new ResizeObserver(() => {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          if (document.body.offsetHeight === lastHeight) return;
+          lastHeight = document.body.offsetHeight;
+          ScrollTrigger.refresh();
+        });
+      });
+      ro.observe(document.body);
+
+      return () => {
+        ro.disconnect();
+        cancelAnimationFrame(raf);
+        mm.revert();
+      };
     },
     { scope: rootRef, dependencies: [] },
   );
@@ -203,12 +226,7 @@ export default function Diagnostic() {
                   <span className="whitespace-nowrap">/ {c.label}</span>
                   <span aria-hidden className="h-px flex-1 bg-white/12" />
                 </div>
-                <h3
-                  ref={(el) => {
-                    headingRefs.current[i] = el;
-                  }}
-                  className="font-heading text-[26px] lg:text-[32px] text-white leading-[1.15] mb-4 lg:mb-5"
-                >
+                <h3 className="font-heading text-[26px] lg:text-[32px] text-white leading-[1.15] mb-4 lg:mb-5">
                   {c.statement}
                 </h3>
                 <p className="text-[15px] lg:text-[17px] text-white/60 leading-[1.75]">
@@ -216,6 +234,23 @@ export default function Diagnostic() {
                 </p>
               </article>
             ))}
+
+            {/* Closing beat. Sibling of the articles, not part of the map:
+                it must not become a level trigger. It is what gives the
+                third state room to breathe before the section hands off. */}
+            <div className="max-w-150">
+              <div aria-hidden className="h-px w-full bg-white/12 mb-8 lg:mb-10" />
+              <p className="font-heading text-[22px] lg:text-[26px] text-white leading-[1.2] mb-5 lg:mb-6">
+                Si no sabés en cuál estás, el diagnóstico te lo dice.
+              </p>
+              <Button
+                variant="link"
+                href="#contacto"
+                icon={<ArrowRight size={14} />}
+              >
+                Iniciar Diagnóstico
+              </Button>
+            </div>
           </div>
         </div>
       </div>

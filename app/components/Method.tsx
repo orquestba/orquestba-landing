@@ -43,7 +43,10 @@ const RESET_IN = 0.4;
 
 export default function Method() {
   const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  // Enough bottom margin that the entry stagger doesn't start while the
+  // maturity section above is still being read — its closing CTA sits right
+  // at this boundary.
+  const isInView = useInView(ref, { once: true, margin: "0px 0px -15% 0px" });
 
   const railRef = useRef<HTMLDivElement>(null);
   const nodeRefs = useRef<(HTMLSpanElement | null)[]>([]);
