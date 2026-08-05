@@ -18,8 +18,16 @@
   --color-rule: #ddd8d0;
   --color-footer-bg: #080f1a;
 
-  --font-heading: var(--dm-serif), Georgia, serif;
-  --font-body: var(--dm-sans), system-ui, sans-serif;
+  --font-heading: var(--font-display-loader), "Space Grotesk", sans-serif;
+  --font-body: var(--font-body-loader), "IBM Plex Sans", system-ui,
+    sans-serif;
+  --font-mono: var(--font-mono-loader), "IBM Plex Mono", monospace;
+}
+
+:root {
+  /* Strong custom easings — the built-in CSS ones read weak/soft. */
+  --ease-press-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-press-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 /* ─── BASE ──────────────────────────────────────────────────────── */
@@ -30,10 +38,6 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-  }
-
-  html {
-    scroll-behavior: smooth;
   }
 
   body {
@@ -50,7 +54,7 @@
   h3,
   h4 {
     font-family: var(--font-heading);
-    font-weight: 400;
+    font-weight: 700;
     line-height: 1.08;
   }
 }
@@ -58,9 +62,10 @@
 /* ─── REUSABLE COMPONENTS ───────────────────────────────────────── */
 @layer components {
   .eyebrow {
+    font-family: var(--font-mono);
     font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
+    font-weight: 500;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-copper);
     margin-bottom: 16px;
@@ -72,6 +77,40 @@
     color: var(--color-copper-light);
   }
 
+  /* Niveles de madurez — el rail lateral y los labels inline son mutuamente
+     excluyentes. Ambas queries espejan gsap.matchMedia() en Diagnostic.tsx,
+     para que no puedan desincronizarse. */
+  .level-rail {
+    display: none;
+  }
+  @media (min-width: 48em) and (prefers-reduced-motion: no-preference) {
+    .level-rail {
+      display: block;
+    }
+    /* El label inline no se oculta con display:none: se esconde visualmente
+       pero sigue en el árbol de accesibilidad, asociando cada nivel con su
+       statement (el rail está fuera del <article> y no da esa relación). */
+    .level-inline-label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+      border: 0;
+    }
+  }
+
+  .bullet-marker {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--color-copper);
+    flex-shrink: 0;
+  }
+
   .btn-primary {
     display: inline-flex;
     align-items: center;
@@ -79,27 +118,23 @@
     background-color: var(--color-copper);
     color: white;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 0.02em;
     padding: 14px 28px;
-    border-radius: 4px;
+    border-radius: 6px;
     border: none;
     cursor: pointer;
     text-decoration: none;
     transition:
       background 0.2s,
-      transform 0.15s;
+      transform 160ms var(--ease-press-out);
   }
-  .btn-primary:hover {
-    background-color: var(--color-copper-light);
-    /* transform: translateY(-1px); */
+  .btn-primary:active {
+    transform: scale(0.97);
   }
   .btn-primary svg {
     transition: transform 0.2s;
   }
-  /* .btn-primary:hover svg {
-    transform: translateX(3px);
-  } */
 
   .btn-ghost-light {
     display: inline-flex;
@@ -114,9 +149,6 @@
     text-decoration: none;
     transition: color 0.2s;
   }
-  .btn-ghost-light:hover {
-    color: white;
-  }
 
   .btn-primary-large {
     display: inline-flex;
@@ -125,19 +157,18 @@
     background-color: var(--color-copper);
     color: white;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 500;
     padding: 18px 36px;
-    border-radius: 4px;
+    border-radius: 6px;
     border: none;
     cursor: pointer;
     text-decoration: none;
     transition:
       background 0.2s,
-      transform 0.15s;
+      transform 160ms var(--ease-press-out);
   }
-  .btn-primary-large:hover {
-    background-color: var(--color-copper-light);
-    /* transform: translateY(-2px); */
+  .btn-primary-large:active {
+    transform: scale(0.97);
   }
 
   /* gap transition can't be expressed as a Tailwind utility */
@@ -151,9 +182,6 @@
     text-decoration: none;
     transition: gap 0.2s;
   }
-  .path-cta:hover {
-    gap: 14px;
-  }
 
   .btn-navy {
     display: inline-flex;
@@ -162,16 +190,18 @@
     background-color: var(--color-navy);
     color: white;
     font-size: 13.5px;
-    font-weight: 600;
+    font-weight: 500;
     padding: 11px 22px;
-    border-radius: 4px;
+    border-radius: 6px;
     border: none;
     cursor: pointer;
     text-decoration: none;
-    transition: background 0.2s;
+    transition:
+      background 0.2s,
+      transform 160ms var(--ease-press-out);
   }
-  .btn-navy:hover {
-    background-color: var(--color-navy-soft);
+  .btn-navy:active {
+    transform: scale(0.97);
   }
 
   .btn-outline {
@@ -181,25 +211,61 @@
     background: transparent;
     color: var(--color-copper-light);
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 0.02em;
     padding: 14px 28px;
-    border-radius: 4px;
+    border-radius: 6px;
     border: 1.5px solid var(--color-copper);
     cursor: pointer;
     text-decoration: none;
     transition:
       background 0.2s,
-      border-color 0.2s;
+      border-color 0.2s,
+      transform 160ms var(--ease-press-out);
+  }
+  .btn-outline:active {
+    transform: scale(0.97);
+  }
+  .btn-outline svg {
+    transition: transform 0.2s;
+  }
+}
+
+/* ─── HOVER (pointer-fine devices only) ────────────────────────────
+   Gated so touch taps don't trigger false hover states. */
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover {
+    background-color: var(--color-copper-light);
+  }
+  .btn-primary-large:hover {
+    background-color: var(--color-copper-light);
+  }
+  .btn-ghost-light:hover {
+    color: white;
+  }
+  .path-cta:hover {
+    gap: 14px;
+  }
+  .btn-navy:hover {
+    background-color: var(--color-navy-soft);
   }
   .btn-outline:hover {
     background: rgba(184, 105, 42, 0.08);
     border-color: var(--color-copper-light);
   }
-  .btn-outline svg {
-    transition: transform 0.2s;
+}
+
+/* ─── REDUCED MOTION ────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
-  /* .btn-outline:hover svg {
-    transform: translateX(3px);
-  } */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -5,9 +5,10 @@ import { motion, useInView } from "framer-motion";
 import { ArrowRight, CheckCircle2, AlertCircle } from "lucide-react";
 import Title from "./shared/Title";
 import { sendContactEmail, type ContactState } from "../actions/contact";
+import { staggerContainer as container, fadeUpItem as item } from "./shared/motion";
 
 const inputBase =
-  "w-full bg-white border rounded px-4 py-3 text-sm text-ink placeholder:text-ink-4 transition-colors focus:outline-none focus:border-copper/60 focus:ring-1 focus:ring-copper/20";
+  "w-full bg-white border rounded px-4 py-3 text-sm text-ink placeholder:text-ink-4 transition-colors focus:border-copper focus:outline-2 focus:outline-copper focus:-outline-offset-2";
 
 const initialState: ContactState = {};
 
@@ -45,7 +46,7 @@ function FormContent({ onReset }: { onReset: () => void }) {
       action={formAction}
       noValidate
       className="flex flex-col gap-5"
-      id="modela"
+      id="contact-form"
     >
       {/* Nombre + Apellido */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -185,23 +186,10 @@ function FormContent({ onReset }: { onReset: () => void }) {
 export default function ContactForm() {
   const ref = useRef(null);
   const isInView = useInView(ref, {
-    // once: true,
+    once: true,
     margin: "-80px",
   });
   const [formKey, setFormKey] = useState(0);
-
-  const container = {
-    hidden: {},
-    show: { transition: { staggerChildren: 0.08 } },
-  };
-  const item = {
-    hidden: { opacity: 0, y: 24 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.45, ease: "easeOut" as const },
-    },
-  };
 
   return (
     <motion.section
@@ -210,20 +198,19 @@ export default function ContactForm() {
       initial="hidden"
       animate={isInView ? "show" : "hidden"}
       className="py-16 md:py-20 lg:py-30 bg-cream"
-      id="modela"
+      id="contacto"
     >
       <div className="max-w-345 mx-auto px-5 md:px-8 lg:px-15">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           {/* Left: heading + contact details */}
           <motion.div variants={item}>
             <div className="eyebrow">Contacto</div>
-            <Title>
-              ¿Qué es <Title.Highlight>planificar?</Title.Highlight>
-            </Title>
-            <p className="text-[15px] lg:text-[17px] text-ink-3 leading-[1.7] mt-4 lg:mt-5 max-w-120">
-              Planificar el futuro no es decidir el próximo periodo. Es decidir
-              cómo alcanzas ese próximo periodo.
-            </p>
+            <Title>Empecemos por un diagnóstico</Title>
+            <Title.Lede className="mt-4 lg:mt-5 max-w-120">
+              Planificar no es decidir el próximo período, es decidir cómo
+              llegás a él. Completá el formulario y coordinamos una primera
+              conversación sin compromiso.
+            </Title.Lede>
 
             <div className="mt-8 lg:mt-10 flex flex-col gap-5 pt-8 lg:pt-10 border-t border-rule">
               {[
@@ -232,7 +219,7 @@ export default function ContactForm() {
                 { label: "Ubicación", value: "Buenos Aires, Argentina" },
               ].map(({ label, value }) => (
                 <div key={label} className="flex flex-col gap-1">
-                  <span className="text-[11px] font-bold tracking-[0.15em] uppercase text-ink-4">
+                  <span className="font-mono text-[11px] font-medium tracking-[0.1em] uppercase text-ink-4">
                     {label}
                   </span>
                   <span className="text-[14px] text-ink-2">{value}</span>

@@ -1,64 +1,144 @@
 "use client";
+
 import { useRef } from "react";
-import ArchDraw from "./ArchDraw";
-import Title from "./shared/Title";
 import { motion, useInView } from "framer-motion";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import MethodCard from "./MethodCard";
+import Title from "./shared/Title";
+import {
+  staggerContainer as container,
+  fadeUpItem as item,
+} from "./shared/motion";
+
+gsap.registerPlugin(useGSAP);
 
 const phases = [
   {
     num: "01",
     name: "Base",
     desc: "Mapeamos el punto de partida: qué información existe, cómo fluye entre las áreas y dónde se rompe la cadena.",
-    timing: "2–3 semanas",
   },
   {
     num: "02",
     name: "Estructura",
     desc: "Diseñamos la arquitectura de gestión: los criterios, indicadores y cadencia que hacen posible que Finanzas, Operaciones y Ventas planifiquen desde la misma lectura.",
-    timing: "3–4 semanas",
   },
   {
     num: "03",
     name: "Sistema",
     desc: "Construimos el portal web a medida: los tableros, indicadores y escenarios proyectados que tu empresa necesita para transformar el dato en dirección.",
-    timing: "6–10 semanas",
   },
   {
     num: "04",
     name: "Ciclo",
     desc: "Cuando el ciclo está en marcha, lo que sigue es mejorar. Cada período planificado deja a la empresa mejor preparada para el siguiente — bienvenida a la Mejora Continua.",
-    timing: "Continuo",
   },
 ];
 
+const DWELL = 2.2;
+const TRAVEL = 0.9;
+const RESET_OUT = 0.5;
+const RESET_IN = 0.4;
+
 export default function Method() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLElement>(null);
+  // Enough bottom margin that the entry stagger doesn't start while the
+  // maturity section above is still being read — its closing CTA sits right
+  // at this boundary.
+  const isInView = useInView(ref, { once: true, margin: "0px 0px -15% 0px" });
 
-  const isInView = useInView(ref, {
-    // once: true,
-    margin: "-100px", // Trigger when the component is 100px in view
-  });
+  const railRef = useRef<HTMLDivElement>(null);
+  const nodeRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const fillRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
-  const container = {
-    hidden: {},
-    show: {
-      transition: {
-        staggerChildren: 0.08,
-      },
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia(railRef.current ?? undefined);
+
+      // Desktop only: below lg the stages are stacked and the rail is a
+      // static gutter line, so there is nothing to travel along.
+      mm.add(
+        "(min-width: 64em) and (prefers-reduced-motion: no-preference)",
+        () => {
+          const nodes = nodeRefs.current.filter(Boolean) as HTMLSpanElement[];
+          const fills = fillRefs.current.filter(Boolean) as HTMLSpanElement[];
+          if (nodes.length !== phases.length || fills.length !== phases.length)
+            return;
+
+          const root = getComputedStyle(document.documentElement);
+          const copper = root.getPropertyValue("--color-copper").trim();
+          const cream = root.getPropertyValue("--color-cream").trim();
+          const ink4 = root.getPropertyValue("--color-ink-4").trim();
+
+          const lit = { backgroundColor: copper, borderColor: copper };
+          const idle = { backgroundColor: cream, borderColor: ink4 };
+
+          // The markup renders every node and fill lit so the section is
+          // complete without JS. Once the timeline exists, it owns the state.
+          const reset = () => {
+            gsap.set(fills, { scaleX: 0, transformOrigin: "left center" });
+            gsap.set(nodes[0], lit);
+            gsap.set(nodes.slice(1), idle);
+          };
+          reset();
+
+          const tl = gsap.timeline({ repeat: -1, paused: true });
+          tl.to({}, { duration: DWELL });
+
+          fills.forEach((fill, i) => {
+            tl.to(fill, { scaleX: 1, duration: TRAVEL, ease: "power2.inOut" });
+
+            const next = nodes[i + 1];
+            if (!next) return;
+            // Light the node just before the fill lands on it, so the
+            // arrival reads as one gesture instead of two.
+            tl.to(
+              next,
+              { ...lit, duration: 0.35, ease: "power2.out" },
+              `-=${TRAVEL * 0.15}`,
+            );
+            tl.to({}, { duration: DWELL });
+          });
+
+          // The rail never runs backwards: it fades out, resets empty and
+          // fades back in. That cut is the cycle starting over, not undoing.
+          tl.to({}, { duration: DWELL + 0.4 });
+          tl.to([...fills, ...nodes], {
+            opacity: 0,
+            duration: RESET_OUT,
+            ease: "power1.in",
+          });
+          tl.call(reset);
+          tl.to([...fills, ...nodes], {
+            opacity: 1,
+            duration: RESET_IN,
+            ease: "power1.out",
+          });
+
+          const el = railRef.current;
+          if (!el) return;
+
+          const io = new IntersectionObserver(
+            ([entry]) => {
+              if (entry.isIntersecting) tl.play();
+              else tl.pause();
+            },
+            { threshold: 0.2 },
+          );
+          io.observe(el);
+
+          return () => {
+            io.disconnect();
+            tl.kill();
+          };
+        },
+      );
+
+      return () => mm.revert();
     },
-  };
-
-  const item = {
-    hidden: { opacity: 0, y: 24 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.45,
-        ease: "easeOut" as const,
-      },
-    },
-  };
+    { scope: railRef, dependencies: [] },
+  );
 
   return (
     <motion.section
@@ -66,66 +146,42 @@ export default function Method() {
       variants={container}
       initial="hidden"
       animate={isInView ? "show" : "hidden"}
-      className="pt-16 md:pt-20 lg:pt-25 bg-cream overflow-hidden"
-      id="metodo"
+      className="py-16 md:py-20 lg:py-25 bg-cream"
+      id="como-trabajamos"
     >
-      <motion.div
-        variants={item}
-        className="max-w-345 mx-auto px-5 md:px-8 lg:px-15 mb-10 lg:mb-14"
-      >
-        <div className="eyebrow">El camino</div>
+      <div className="max-w-345 mx-auto px-5 md:px-8 lg:px-15">
+        <motion.div variants={item} className="mb-10 lg:mb-14">
+          <div className="eyebrow">El camino</div>
 
-        <Title>
-          Construimos el puente entre tu punto de{" "}
-          <Title.Highlight>partida y tu destino</Title.Highlight>
-        </Title>
-        <p className="text-[15px] lg:text-[17px] text-ink-3 leading-[1.7] max-w-160 mt-4 lg:mt-5">
-          Conectamos datos, áreas y decisiones. El dato alinea, las áreas
-          deciden.
-        </p>
-      </motion.div>
+          <Title>Cómo trabajamos</Title>
+          <Title.Lede className="mt-4 lg:mt-5">
+            Cuatro etapas para pasar de datos dispersos a un ciclo de
+            planificación que no se detiene.
+          </Title.Lede>
+        </motion.div>
 
-      <motion.div
-        variants={item}
-        className="w-full relative bg-cream overflow-hidden"
-      >
-        <div className="max-w-345 mx-auto px-5 md:px-8 lg:px-15">
-          <ArchDraw />
-
-          {/* Phase cards grid */}
-          <motion.div
-            variants={item}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 bg-cream border-t border-rule"
-          >
-            {phases.map((phase, i) => (
-              <div
-                key={phase.num}
-                className={[
-                  "pt-8 px-6 pb-10 md:pt-10 md:px-8 lg:pt-12 lg:px-10 lg:pb-13",
-                  "border-b border-rule md:border-b-0",
-                  "relative transition-colors hover:bg-cream-dark",
-                  "lg:border-r lg:border-rule",
-                  i === phases.length - 1 ? "lg:border-r-0 border-b-0" : "",
-                  i % 2 === 0 ? "md:border-r md:border-rule" : "md:border-r-0",
-                ].join(" ")}
-              >
-                <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-ink-4 mb-3 lg:mb-4">
-                  Etapa {phase.num}
-                </div>
-                <div className="font-heading text-[26px] lg:text-[32px] text-navy mb-3 lg:mb-4 leading-[1.1]">
-                  {phase.name}
-                </div>
-                <p className="text-sm lg:text-[14.5px] text-ink-3 leading-[1.65] mb-5 lg:mb-7">
-                  {phase.desc}
-                </p>
-                {/* <div className="text-[10px] font-bold tracking-[0.18em] uppercase text-copper">
-                  {phase.timing}
-                </div> */}
-              </div>
-            ))}
-          </motion.div>
-        </div>
-      </motion.div>
+        <motion.div
+          ref={railRef}
+          variants={container}
+          className="grid grid-cols-1 lg:grid-cols-4 gap-x-10 gap-y-10"
+        >
+          {phases.map((phase, i) => (
+            <MethodCard
+              key={phase.num}
+              num={phase.num}
+              name={phase.name}
+              desc={phase.desc}
+              isLast={i === phases.length - 1}
+              nodeRef={(el) => {
+                nodeRefs.current[i] = el;
+              }}
+              fillRef={(el) => {
+                fillRefs.current[i] = el;
+              }}
+            />
+          ))}
+        </motion.div>
+      </div>
     </motion.section>
   );
 }
