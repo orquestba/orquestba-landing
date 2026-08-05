@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useRef } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -26,54 +26,14 @@ const cases = [
   },
 ];
 
-const MaturityMeter = forwardRef<SVGCircleElement>(function MaturityMeter(
-  _,
-  ref,
-) {
-  return (
-    <svg
-      viewBox="0 0 120 120"
-      className="w-24 lg:w-28"
-      aria-hidden="true"
-      fill="none"
-    >
-      <g transform="rotate(-90 60 60)">
-        {/* track — the broken ring: 88 of 100 drawn, same gap as the logo */}
-        <circle
-          cx="60"
-          cy="60"
-          r="48"
-          stroke="rgba(255,255,255,0.14)"
-          strokeWidth="6"
-          pathLength={100}
-          strokeDasharray="88 100"
-          strokeLinecap="butt"
-        />
-        {/* progress — same geometry, scrubbed by scroll */}
-        <circle
-          ref={ref}
-          cx="60"
-          cy="60"
-          r="48"
-          stroke="var(--color-copper)"
-          strokeWidth="6"
-          pathLength={100}
-          strokeDasharray="88 100"
-          strokeDashoffset={88}
-          strokeLinecap="butt"
-        />
-      </g>
-    </svg>
-  );
-});
-
 export default function Diagnostic() {
   const rootRef = useRef<HTMLElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const streamRef = useRef<HTMLDivElement>(null);
-  const meterRef = useRef<SVGCircleElement>(null);
-  const layersRef = useRef<(HTMLDivElement | null)[]>([]);
+  const levelRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const articleRefs = useRef<(HTMLElement | null)[]>([]);
+  const headingRefs = useRef<(HTMLHeadingElement | null)[]>([]);
 
   useGSAP(
     () => {
@@ -97,35 +57,40 @@ export default function Diagnostic() {
           // Right column barely overflows — not worth pinning.
           if (distance() < 240) return;
 
-          const tl = gsap.timeline({ defaults: { ease: "none" } });
+          let activeIdx = -1;
+          const setActive = (idx: number) => {
+            if (idx === activeIdx) return;
+            activeIdx = idx;
 
-          tl.fromTo(
-            meterRef.current,
-            { strokeDashoffset: 88 },
-            { strokeDashoffset: 0, duration: 1 },
-            0,
-          );
+            levelRefs.current.forEach((el, i) => {
+              if (!el) return;
+              gsap.to(el, {
+                color: i === idx ? "#d4854a" : "rgba(255,255,255,0.2)",
+                scale: i === idx ? 1.03 : 1,
+                y: i === idx ? -2 : 0,
+                opacity: i === idx ? 1 : 0.7,
+                duration: 0.35,
+                ease: "power2.out",
+                overwrite: "auto",
+              });
+            });
 
-          tl.to(layersRef.current[0], { autoAlpha: 0, y: -14, duration: 0.07 }, 0.3)
-            .fromTo(
-              layersRef.current[1],
-              { autoAlpha: 0, y: 14 },
-              { autoAlpha: 1, y: 0, duration: 0.07 },
-              0.33,
-            )
-            .to(layersRef.current[1], { autoAlpha: 0, y: -14, duration: 0.07 }, 0.64)
-            .fromTo(
-              layersRef.current[2],
-              { autoAlpha: 0, y: 14 },
-              { autoAlpha: 1, y: 0, duration: 0.07 },
-              0.67,
-            );
+            articleRefs.current.forEach((el, i) => {
+              if (!el) return;
+              gsap.to(el, {
+                opacity: i === idx ? 1 : 0.45,
+                y: i === idx ? 0 : 12,
+                duration: 0.35,
+                ease: "power2.out",
+                overwrite: "auto",
+              });
+            });
+          };
 
           ScrollTrigger.create({
-            animation: tl,
             trigger: g,
             start: () =>
-              `top ${(document.getElementById("main-nav")?.offsetHeight ?? 0) + 24}px`,
+              `top ${(document.getElementById("main-nav")?.offsetHeight ?? 0) + 64}px`,
             end: () => `+=${distance()}`,
             pin: p,
             pinSpacing: false,
@@ -133,6 +98,22 @@ export default function Diagnostic() {
             scrub: true,
             invalidateOnRefresh: true,
             anticipatePin: 1,
+          });
+
+          // One trigger per article, keyed to its heading — the active
+          // stage follows what the reader is actually looking at, not a
+          // scroll-percentage estimate of it.
+          cases.forEach((_, i) => {
+            const heading = headingRefs.current[i];
+            if (!heading) return;
+
+            ScrollTrigger.create({
+              trigger: heading,
+              start: "top 38%",
+              end: "bottom 38%",
+              onEnter: () => setActive(i),
+              onEnterBack: () => setActive(i),
+            });
           });
         },
       );
@@ -157,8 +138,8 @@ export default function Diagnostic() {
             Trabajamos con empresas en cualquier etapa
           </Title>
           <Title.Lede light>
-            Reconocé en cuál estás hoy. En las tres, el punto de entrada es
-            el mismo diagnóstico.
+            Reconocé en cuál estás hoy. En las tres, el punto de entrada es el
+            mismo diagnóstico.
           </Title.Lede>
         </div>
 
@@ -173,34 +154,20 @@ export default function Diagnostic() {
             ref={panelRef}
             className="hidden md:block motion-reduce:hidden self-start"
           >
-            <MaturityMeter ref={meterRef} />
-
-            <div className="mt-6 flex items-center gap-2 font-mono text-[10px] tracking-[0.08em] uppercase text-white/45">
-              <span>Inicial</span>
-              <span className="flex-1 h-px bg-white/15" />
-              <span>Intermedio</span>
-              <span className="flex-1 h-px bg-white/15" />
-              <span>Avanzado</span>
-            </div>
-
-            <div className="grid mt-8">
+            <div className="flex flex-col gap-3 lg:gap-4">
               {cases.map((c, i) => (
-                <div
+                <span
                   key={c.label}
                   ref={(el) => {
-                    layersRef.current[i] = el;
+                    levelRefs.current[i] = el;
                   }}
-                  className={["[grid-area:1/1]", i > 0 ? "opacity-0 invisible" : ""].join(
-                    " ",
-                  )}
+                  className={[
+                    "font-heading text-[30px] lg:text-[40px] leading-[1.08] tracking-[-0.01em]",
+                    i === 0 ? "text-copper-light" : "text-white/20",
+                  ].join(" ")}
                 >
-                  <div className="font-mono text-[11px] tracking-[0.08em] uppercase text-white/50 mb-4">
-                    {c.label}
-                  </div>
-                  <p className="font-heading text-[26px] lg:text-[30px] text-white leading-[1.15]">
-                    {c.statement}
-                  </p>
-                </div>
+                  {c.label}
+                </span>
               ))}
             </div>
           </div>
@@ -210,14 +177,25 @@ export default function Diagnostic() {
               state. */}
           <div
             ref={streamRef}
-            className="flex flex-col gap-16 md:gap-40 lg:gap-52"
+            className="flex flex-col gap-14 md:gap-20 lg:gap-28"
           >
-            {cases.map((c) => (
-              <article key={c.label} className="max-w-140">
-                <div className="md:hidden font-mono text-[11px] tracking-[0.08em] uppercase text-white/50 mb-3">
+            {cases.map((c, i) => (
+              <article
+                key={c.label}
+                ref={(el) => {
+                  articleRefs.current[i] = el;
+                }}
+                className="max-w-140"
+              >
+                {/* <div className="font-mono text-[11px] tracking-[0.08em] uppercase text-white/50 mb-3">
                   {c.label}
-                </div>
-                <h3 className="md:hidden font-heading text-[22px] text-white leading-[1.2] mb-4">
+                </div> */}
+                <h3
+                  ref={(el) => {
+                    headingRefs.current[i] = el;
+                  }}
+                  className="font-heading text-[26px] lg:text-[32px] text-white leading-[1.15] mb-4 lg:mb-5"
+                >
                   {c.statement}
                 </h3>
                 <p className="text-[15px] lg:text-[17px] text-white/60 leading-[1.75]">
