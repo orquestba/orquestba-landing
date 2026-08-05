@@ -13,8 +13,8 @@ export default function Home() {
       <Navbar />
       <Hero />
       <RoleTabs />
-      <Method />
       <Diagnostic />
+      <Method />
       <Aspiration />
       <ContactForm />
       <Footer />

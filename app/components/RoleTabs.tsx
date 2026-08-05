@@ -1,9 +1,12 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Check } from "lucide-react";
 import Title from "./shared/Title";
 import { motion, useInView } from "framer-motion";
+import {
+  staggerContainer as container,
+  fadeUpItem as item,
+} from "./shared/motion";
 
 type Role = "business" | "finance" | "supply" | "sales";
 
@@ -118,31 +121,9 @@ export default function RoleTabs() {
   const ref = useRef(null);
 
   const isInView = useInView(ref, {
-    // once: true,
+    once: true,
     margin: "-100px", // Trigger when the component is 100px in view
   });
-
-  const container = {
-    hidden: {},
-    show: {
-      transition: {
-        staggerChildren: 0.08,
-      },
-    },
-  };
-
-  const item = {
-    hidden: { opacity: 0, y: 24 },
-
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.45,
-        ease: "easeOut" as const,
-      },
-    },
-  };
 
   return (
     <motion.section
@@ -156,17 +137,15 @@ export default function RoleTabs() {
       <div className="max-w-345 mx-auto px-5 md:px-8 lg:px-15">
         {/* Header */}
         <motion.div variants={item} className="mb-10 lg:mb-14">
-          <div className="eyebrow eyebrow-muted">Lo que frena a tu empresa</div>
+          <div className="eyebrow eyebrow-muted mb-2">El problema</div>
 
-          <Title>
-            Lo llaman distinto. <Title.Highlight>Es lo mismo</Title.Highlight>
-          </Title>
+          <Title>Cada área tiene su propia versión de los números</Title>
 
-          <p className="text-[15px] lg:text-[17px] text-ink-3 leading-[1.7] max-w-160">
-            Cada área lo siente diferente aunque el dolor es compartido.
-            Trabajar por silos sale caro — desconecta la estrategia de la
-            operación.
-          </p>
+          <Title.Lede>
+            Lo llaman distinto, pero es el mismo problema: trabajar por silos
+            desconecta la estrategia de la operación. Encontrá dónde te pega a
+            vos.
+          </Title.Lede>
         </motion.div>
 
         {/* Tabs */}
@@ -193,14 +172,14 @@ export default function RoleTabs() {
         {/* Panel */}
         <motion.div
           variants={item}
-          className="grid grid-cols-1 lg:grid-cols-2 border border-rule border-t-0 rounded-b-xl overflow-hidden"
+          className="relative grid grid-cols-1 lg:grid-cols-2 border border-rule border-t-0"
         >
           {/* Left */}
           <motion.div
             variants={item}
-            className="p-6 md:p-8 lg:p-13 bg-cream border-b border-rule lg:border-b-0 lg:border-r"
+            className="p-6 md:p-8 lg:p-13 bg-off-white border-b border-rule lg:border-b-0"
           >
-            <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-ink-4 mb-4 lg:mb-5">
+            <div className="font-mono text-[10px] font-medium tracking-[0.08em] uppercase text-ink-4 mb-4 lg:mb-5">
               El problema que sentís
             </div>
 
@@ -219,7 +198,7 @@ export default function RoleTabs() {
                   variants={item}
                   className="flex items-start gap-3 text-[13px] lg:text-[13.5px] text-ink-3 leading-normal"
                 >
-                  <span className="text-ink-4 text-xs mt-0.5 shrink-0">—</span>
+                  <span className="bullet-marker mt-1.5" aria-hidden="true" />
                   {s}
                 </motion.li>
               ))}
@@ -227,19 +206,16 @@ export default function RoleTabs() {
           </motion.div>
 
           {/* Right */}
-          <motion.div
-            variants={item}
-            className="p-6 md:p-8 lg:p-13 bg-off-white"
-          >
-            <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-copper mb-4 lg:mb-5">
+          <motion.div variants={item} className="p-6 md:p-8 lg:p-13 bg-navy">
+            <div className="font-mono text-[10px] font-medium tracking-[0.08em] uppercase text-copper-light mb-4 lg:mb-5">
               Cómo responde IBP
             </div>
 
-            <h3 className="font-heading text-xl md:text-[22px] lg:text-2xl text-navy mb-3 lg:mb-4 leading-[1.2]">
+            <h3 className="font-heading text-xl md:text-[22px] lg:text-2xl text-white mb-3 lg:mb-4 leading-[1.2]">
               {panel.ibpHeadline}
             </h3>
 
-            <p className="text-sm lg:text-[15px] text-ink-2 leading-[1.7] mb-6 lg:mb-8">
+            <p className="text-sm lg:text-[15px] text-white/60 leading-[1.7] mb-6 lg:mb-8">
               {panel.ibpBody}
             </p>
 
@@ -248,11 +224,9 @@ export default function RoleTabs() {
                 <motion.li
                   key={o}
                   variants={item}
-                  className="flex items-start gap-3 text-[13px] lg:text-sm text-ink-2 leading-normal"
+                  className="flex items-start gap-3 text-[13px] lg:text-sm text-white/70 leading-normal"
                 >
-                  <div className="w-4.5 h-4.5 bg-copper-pale rounded-full flex items-center justify-center shrink-0 mt-0.5">
-                    <Check size={10} strokeWidth={1.4} color="#B8692A" />
-                  </div>
+                  <span className="bullet-marker mt-1.5" aria-hidden="true" />
                   {o}
                 </motion.li>
               ))}

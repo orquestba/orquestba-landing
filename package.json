@@ -9,11 +9,14 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "framer-motion": "^12.38.0",
+    "gsap": "^3.15.0",
     "lucide-react": "^1.11.0",
     "next": "16.2.4",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "react-icons": "^5.7.0",
     "resend": "^6.12.2",
     "zod": "^4.3.6"
   },
@@ -26,5 +29,6 @@
     "eslint-config-next": "16.2.4",
     "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+  "packageManager": "yarn@4.17.0+sha512.c2957de2f9025ab14d63b24d0d8be1f1655810e22c341042c27f7ecd017b180ec12db73d69ac366d71b304ef9f069349ce462de96f04f8f1da317f4f762c95ae"
 }

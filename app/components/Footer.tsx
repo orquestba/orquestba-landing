@@ -4,54 +4,37 @@ import Image from "next/image";
 import { getCurrentYear } from "../utils/getCurrentYear";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
+import {
+  staggerContainer as container,
+  fadeUpItem as item,
+} from "./shared/motion";
+import { FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const links = [
-  { href: "#contexto", label: "Contexto" },
-  { href: "#metodo", label: "Método" },
-  { href: "#tu-empresa", label: "Tu empresa" },
-  { href: "#modela", label: "Modelá" },
+  { href: "#problema", label: "Por qué IBP" },
+  { href: "#como-trabajamos", label: "Cómo trabajamos" },
+  { href: "#servicios", label: "Servicios" },
+  { href: "#contacto", label: "Contacto" },
 ];
 
 const serviceLinks = [
   {
-    href: "#tu-empresa",
+    href: "#servicios",
     label: "Instalás ORQUESTBA Framework",
   },
   {
-    href: "#tu-empresa",
+    href: "#servicios",
     label: "Asesoría en Análisis de Negocio",
   },
-  ,
 ];
 
 export default function Footer() {
   const ref = useRef(null);
 
   const isInView = useInView(ref, {
-    // once: true,
+    once: true,
     margin: "-100px", // Trigger when the component is 100px in view
   });
-
-  const container = {
-    hidden: {},
-    show: {
-      transition: {
-        staggerChildren: 0.08,
-      },
-    },
-  };
-
-  const item = {
-    hidden: { opacity: 0, y: 24 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.45,
-        ease: "easeOut" as const,
-      },
-    },
-  };
 
   return (
     <motion.footer
@@ -76,28 +59,31 @@ export default function Footer() {
               width={180}
               height={100}
             />
-            <span className="text-[11px] text-white tracking-[0.08em] mb-4 md:mb-5">
-              Planificacion Integrada de Negocio · IBP
-            </span>
+            <p className="text-[11px] text-white tracking-[0.08em] mb-4 md:mb-5">
+              Planificación Integrada de Negocio · IBP
+            </p>
             <p className="text-[13px] text-white/35 leading-[1.65] mb-5 md:mb-6 max-w-xs lg:max-w-none">
               Traducimos el dato en dirección de negocio.
             </p>
             <div className="flex gap-3">
-              <Link
-                href="#"
-                className="w-8 h-8 border border-white/12 rounded-md flex items-center justify-center text-white/40 no-underline transition-colors hover:border-copper hover:text-copper-light"
-                aria-label="LinkedIn"
-              >
-                <span className="text-[13px] font-semibold leading-none">
-                  in
-                </span>
+              <Link target="_blank" href="https://www.instagram.com/">
+                <FaInstagram
+                  className="w-8 h-8 border-white/12 rounded-md flex items-center justify-center text-white/40 no-underline transition-colors hover:border-copper hover:text-copper-light"
+                  aria-label="Instagram"
+                />
+              </Link>
+              <Link target="_blank" href="https://www.linkedin.com/">
+                <FaLinkedin
+                  className="w-8 h-8 border-white/12 rounded-md flex items-center justify-center text-white/40 no-underline transition-colors hover:border-copper hover:text-copper-light"
+                  aria-label="Linkedin"
+                />
               </Link>
             </div>
           </motion.div>
 
           {/* Nav */}
           <motion.div variants={item}>
-            <div className="text-[11px] font-bold tracking-[0.15em] uppercase text-white/60 mb-4 md:mb-5">
+            <div className="font-mono text-[11px] font-medium tracking-[0.1em] uppercase text-white/60 mb-4 md:mb-5">
               Navegación
             </div>
             <ul className="flex flex-col gap-2.5 list-none">
@@ -111,22 +97,27 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <span className="text-sm text-white/25 select-none">
+                  orquestba.com
+                </span>
+              </li>
             </ul>
           </motion.div>
 
           {/* Services */}
           <motion.div variants={item}>
-            <div className="text-[11px] font-bold tracking-[0.15em] uppercase text-white/60 mb-4 md:mb-5">
+            <div className="font-mono text-[11px] font-medium tracking-[0.1em] uppercase text-white/60 mb-4 md:mb-5">
               Servicios
             </div>
             <ul className="flex flex-col gap-2.5 list-none">
               {serviceLinks.map((service) => (
-                <li key={service!.label}>
+                <li key={service.label}>
                   <Link
-                    href={service!.href}
+                    href={service.href}
                     className="text-sm text-white/35 no-underline transition-colors hover:text-white/75"
                   >
-                    {service?.label}
+                    {service.label}
                   </Link>
                 </li>
               ))}
@@ -135,7 +126,7 @@ export default function Footer() {
 
           {/* Contact — spans both cols on sm so it sits below the link cols */}
           <motion.div variants={item} className="sm:col-span-2 lg:col-span-1">
-            <div className="text-[11px] font-bold tracking-[0.15em] uppercase text-white/60 mb-4 md:mb-5">
+            <div className="font-mono text-[11px] font-medium tracking-[0.1em] uppercase text-white/60 mb-4 md:mb-5">
               Contacto
             </div>
             {[
@@ -159,7 +150,7 @@ export default function Footer() {
           className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center"
         >
           <motion.div variants={item} className="text-xs text-white/20">
-            © {getCurrentYear()} Orquestba. Todos los derechos reservados.
+            © {getCurrentYear()} ORQUESTBA. Todos los derechos reservados.
           </motion.div>
           <motion.div variants={item} className="flex flex-wrap gap-4 md:gap-6">
             {["Política de privacidad", "Términos y condiciones"].map(

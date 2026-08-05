@@ -9,10 +9,10 @@ import { motion } from "framer-motion";
 import horizontalLogo from "@/public/Logo-horizontal-azul.svg";
 
 const links = [
-  { href: "#contexto", label: "Contexto" },
-  { href: "#metodo", label: "Método" },
-  { href: "#tu-empresa", label: "Tu empresa" },
-  { href: "#modela", label: "Modelá" },
+  { href: "#problema", label: "Por qué IBP" },
+  { href: "#como-trabajamos", label: "Cómo trabajamos" },
+  { href: "#servicios", label: "Servicios" },
+  { href: "#contacto", label: "Contacto" },
 ];
 
 export default function Navbar() {
@@ -25,6 +25,23 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleAnchorClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    if (!href.startsWith("#")) return;
+    const target = document.querySelector(href);
+    if (!target) return;
+    e.preventDefault();
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    target.scrollIntoView({
+      behavior: prefersReduced ? "auto" : "smooth",
+      block: "start",
+    });
+  };
+
   return (
     <motion.nav
       initial={{ opacity: 0 }}
@@ -35,7 +52,11 @@ export default function Navbar() {
       }}
       id="main-nav"
       className="sticky top-0 z-100 bg-off-white flex flex-col"
-      style={{ boxShadow: scrolled ? "0 1px 20px rgba(0,0,0,0.08)" : "none" }}
+      style={{
+        borderBottom: scrolled
+          ? "1px solid rgba(23,18,16,0.1)"
+          : "1px solid transparent",
+      }}
     >
       <div className="max-w-345 mx-auto px-5 py-6 md:px-8 lg:py-4 lg:px-15 flex items-center justify-between w-full">
         {/* Logo */}
@@ -44,7 +65,7 @@ export default function Navbar() {
             src={horizontalLogo}
             loading="eager"
             alt="Orquestba Logo"
-            height={50}
+            height={80}
             width={150}
           />
         </Link>
@@ -55,7 +76,8 @@ export default function Navbar() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="text-md text-ink-2 no-underline transition-colors hover:text-navy"
+                onClick={(e) => handleAnchorClick(e, link.href)}
+                className="text-md font-medium text-ink-2 no-underline transition-colors hover:text-navy"
               >
                 {link.label}
               </Link>
@@ -67,10 +89,10 @@ export default function Navbar() {
         <div className="hidden lg:block">
           <Button
             color="copper"
-            href="#modela"
+            href="#contacto"
             icon={<ArrowRight size={14} className="opacity-70" />}
           >
-            Iniciar diagnóstico
+            Iniciar Diagnóstico
           </Button>
         </div>
 
@@ -99,8 +121,11 @@ export default function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-[15px] text-ink-2 no-underline py-3 border-b border-rule/50 last:border-b-0 transition-colors hover:text-navy"
-              onClick={() => setMenuOpen(false)}
+              className="text-[15px] font-medium text-ink-2 no-underline py-3 border-b border-rule/50 last:border-b-0 transition-colors hover:text-navy"
+              onClick={(e) => {
+                setMenuOpen(false);
+                handleAnchorClick(e, link.href);
+              }}
             >
               {link.label}
             </Link>
@@ -108,11 +133,11 @@ export default function Navbar() {
           <div className="pt-4">
             <Button
               color="copper"
-              href="#diagnostico"
+              href="#contacto"
               className="w-full justify-center"
               icon={<ArrowRight size={14} className="opacity-70" />}
             >
-              Iniciar diagnóstico
+              Iniciar Diagnóstico
             </Button>
           </div>
         </div>
