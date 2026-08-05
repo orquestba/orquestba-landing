@@ -162,7 +162,7 @@ export default function Diagnostic() {
                     levelRefs.current[i] = el;
                   }}
                   className={[
-                    "font-heading text-[30px] lg:text-[40px] leading-[1.08] tracking-[-0.01em]",
+                    "font-heading text-[30px] lg:text-[48px] leading-[1.08] tracking-[-0.01em]",
                     i === 0 ? "text-copper-light" : "text-white/20",
                   ].join(" ")}
                 >
