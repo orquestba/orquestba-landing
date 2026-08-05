@@ -26,6 +26,12 @@ const cases = [
   },
 ];
 
+// Rail colors. The idle tone has to stay readable on navy on its own — it is
+// the only place the level names exist on desktop. Keep it in sync with the
+// static `text-white/35` fallback on the spans below.
+const LEVEL_ACTIVE = "#d4854a"; // --color-copper-light
+const LEVEL_IDLE = "rgba(255,255,255,0.35)";
+
 export default function Diagnostic() {
   const rootRef = useRef<HTMLElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -54,8 +60,6 @@ export default function Diagnostic() {
           if (!g || !p || !s) return;
 
           const distance = () => Math.max(0, s.offsetHeight - p.offsetHeight);
-          // Right column barely overflows — not worth pinning.
-          if (distance() < 240) return;
 
           let activeIdx = -1;
           const setActive = (idx: number) => {
@@ -65,10 +69,9 @@ export default function Diagnostic() {
             levelRefs.current.forEach((el, i) => {
               if (!el) return;
               gsap.to(el, {
-                color: i === idx ? "#d4854a" : "rgba(255,255,255,0.2)",
+                color: i === idx ? LEVEL_ACTIVE : LEVEL_IDLE,
                 scale: i === idx ? 1.03 : 1,
                 y: i === idx ? -2 : 0,
-                opacity: i === idx ? 1 : 0.7,
                 duration: 0.35,
                 ease: "power2.out",
                 overwrite: "auto",
@@ -87,18 +90,25 @@ export default function Diagnostic() {
             });
           };
 
-          ScrollTrigger.create({
-            trigger: g,
-            start: () =>
-              `top ${(document.getElementById("main-nav")?.offsetHeight ?? 0) + 64}px`,
-            end: () => `+=${distance()}`,
-            pin: p,
-            pinSpacing: false,
-            pinType: "transform",
-            scrub: true,
-            invalidateOnRefresh: true,
-            anticipatePin: 1,
-          });
+          // Right column barely overflows — not worth pinning. Guards the pin
+          // only: the state triggers below don't depend on it, and skipping
+          // them used to leave the inactive levels stuck at their static color.
+          if (distance() >= 240) {
+            ScrollTrigger.create({
+              trigger: g,
+              start: () =>
+                `top ${(document.getElementById("main-nav")?.offsetHeight ?? 0) + 64}px`,
+              end: () => `+=${distance()}`,
+              pin: p,
+              pinSpacing: false,
+              pinType: "transform",
+              scrub: true,
+              invalidateOnRefresh: true,
+              anticipatePin: 1,
+            });
+          }
+
+          setActive(0);
 
           // One trigger per article, keyed to its heading — the active
           // stage follows what the reader is actually looking at, not a
@@ -147,12 +157,14 @@ export default function Diagnostic() {
           ref={gridRef}
           className="grid grid-cols-1 md:grid-cols-[minmax(260px,360px)_1fr] md:gap-x-16 lg:gap-x-24"
         >
-          {/* LEFT — the pin target. Hidden on mobile and under
-              reduced-motion: the right column alone is a complete,
-              self-sufficient section. */}
+          {/* LEFT — the pin target. `.level-rail` shows it only where the
+              pinned animation actually runs (md+, no reduced motion); below
+              that each article carries its own level label instead.
+              aria-hidden: the inline labels are the accessible copy. */}
           <div
             ref={panelRef}
-            className="hidden md:block motion-reduce:hidden self-start"
+            aria-hidden="true"
+            className="level-rail self-start"
           >
             <div className="flex flex-col gap-3 lg:gap-4">
               {cases.map((c, i) => (
@@ -163,7 +175,7 @@ export default function Diagnostic() {
                   }}
                   className={[
                     "font-heading text-[30px] lg:text-[48px] leading-[1.08] tracking-[-0.01em]",
-                    i === 0 ? "text-copper-light" : "text-white/20",
+                    i === 0 ? "text-copper-light" : "text-white/35",
                   ].join(" ")}
                 >
                   {c.label}
@@ -185,11 +197,12 @@ export default function Diagnostic() {
                 ref={(el) => {
                   articleRefs.current[i] = el;
                 }}
-                className="max-w-140"
+                className="max-w-150"
               >
-                {/* <div className="font-mono text-[11px] tracking-[0.08em] uppercase text-white/50 mb-3">
-                  {c.label}
-                </div> */}
+                <div className="level-inline-label eyebrow eyebrow-light flex items-center gap-3">
+                  <span className="whitespace-nowrap">/ {c.label}</span>
+                  <span aria-hidden className="h-px flex-1 bg-white/12" />
+                </div>
                 <h3
                   ref={(el) => {
                     headingRefs.current[i] = el;

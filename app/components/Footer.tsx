@@ -58,6 +58,7 @@ export default function Footer() {
               alt="Orquestba Logo"
               width={180}
               height={100}
+              className="mb-2"
             />
             <p className="text-[11px] text-white tracking-[0.08em] mb-4 md:mb-5">
               Planificación Integrada de Negocio · IBP
